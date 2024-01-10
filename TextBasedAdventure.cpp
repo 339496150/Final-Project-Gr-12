@@ -133,6 +133,8 @@ void roomMiniBoss(Player &player)
 // Room 5
 void roomFive(Player &player) 
 {
+    BaseEnemy ghostFive;
+    ghostFive.deadOrAlive(true);
     char key, moveRoomFive;
     ghostFiveFight(player);
     if (player.keyCheck() == false) 
@@ -396,11 +398,11 @@ void roomEleven(Player &player)
     }
     else if (moveRoomEleven == 'A') 
     {
-        if (keyAquired == true) 
+        if (player.keyCheck() == true) 
         {
             roomBoss(player);
         }
-        else if (keyAquired == false) 
+        else if (player.keyCheck() == false) 
         {
             cout << "You dont have the key to get into this room\n";
             roomEleven(player);
@@ -429,22 +431,26 @@ void roomTwelve(Player &player)
     cout << "Walk up to room 9 (W), walk down to room 13 (S), or walk left to room 14 (A):  ";
     cin >> moveRoomTwelve;
     moveRoomTwelve = toupper(moveRoomTwelve);
-    if (moveRoomTwelve == 'W') {
+    if (moveRoomTwelve == 'W') 
+    {
         roomNine(player);
     }
-    else if (moveRoomTwelve == 'A') {
+    else if (moveRoomTwelve == 'A') 
+    {
         roomFourteen(player);
     }
-    else if (moveRoomTwelve == 'S') {
+    else if (moveRoomTwelve == 'S') 
+    {
         cout << "As you walk through the hall way you see spikes poking out of the wall\n";
         cout << "As you walk past them they activate and you get hit.\n";
         cout << "The spikes deal 50 damage\n";
-        playerHealth = playerHealth - 50;
+        player.setHealth(player.getHealth() - 50);
         playerKilled(player);
-        cout << "You have " << playerHealth << " HP\n";
+        cout << "You have " << player.getHealth() << " HP\n";
         roomThirteen(player);
     }
-    else {
+    else 
+    {
         cout << "There is no door there. Please use your brain.\n";
         roomTwelve(player);
     }
@@ -459,16 +465,20 @@ void roomThirteen(Player &player)
     cout << "Walk up to room 14 (W), walk left to room 15 (A), or walk right to room 12 (D):  ";
     cin >> moveRoomThirteen;
     moveRoomThirteen = toupper(moveRoomThirteen);
-    if (moveRoomThirteen == 'W') {
+    if (moveRoomThirteen == 'W') 
+    {
         roomFourteen(player);
     }
-    else if (moveRoomThirteen == 'A') {
+    else if (moveRoomThirteen == 'A') 
+    {
         roomFifteen(player);
     }
-    else if (moveRoomThirteen == 'D') {
+    else if (moveRoomThirteen == 'D') 
+    {
         roomTwelve(player);
     }
-    else {
+    else 
+    {
         cout << "There is no door there. Please use your brain.\n";
         roomThirteen(player);
     }
@@ -482,19 +492,24 @@ void roomFourteen(Player &player)
     cout << "Walk up to room 10 (W), walk down to room 13 (S), walk left to room 15 (A), or walk right to room 12 (D):  ";
     cin >> moveRoomFourteen;
     moveRoomFourteen = toupper(moveRoomFourteen);
-    if (moveRoomFourteen == 'W') {
+    if (moveRoomFourteen == 'W') 
+    {
         roomTen(player);
     }
-    else if (moveRoomFourteen == 'A') {
+    else if (moveRoomFourteen == 'A') 
+    {
         roomFifteen(player);
     }
-    else if (moveRoomFourteen == 'S') {
+    else if (moveRoomFourteen == 'S') 
+    {
         roomThirteen(player);
     }
-    else if (moveRoomFourteen == 'D') {
+    else if (moveRoomFourteen == 'D') 
+    {
         roomTwelve(player);
     }
-    else {
+    else 
+    {
         cout << "There is no door there. Please use your brain.\n";
         roomFourteen(player);
     }
@@ -504,16 +519,16 @@ void roomFourteen(Player &player)
 void roomFifteen(Player &player) 
 {
     char healFifteen, moveRoomFifteen;
-    cout << "Welcome to room 8\n";
+    cout << "Welcome to room 15\n";
     cout << "You see a campfire in the middle of the room.\n";
-    cout << "You have " << playerHealth << " HP\n";
+    cout << "Your health " << player.getHealth() << " HP\n";
     cout << "The campfire's warmpth is comforting to you. Would you like to heal. (Y/N):  ";
     cin >> healFifteen;
     healFifteen = toupper(healFifteen);
     if (healFifteen == 'Y') 
     {
-        playerHealth = (100);
-        cout << "You healed " << playerHealth << " HP\n";
+        player.setHealth(100);
+        cout << "You healed to " << player.getHealth() << " HP\n";
     }
     else if (healFifteen == 'N') 
     {
@@ -537,11 +552,11 @@ void roomFifteen(Player &player)
     }
     else if (moveRoomFifteen == 'A') 
     {
-        if (keyAquired == true) 
+        if (player.keyCheck() == true) 
         {
             roomBoss(player);
         }
-        else if (keyAquired == false) 
+        else if (player.keyCheck() == false) 
         {
             cout << "You dont have the key to get into this room\n";
             roomFifteen(player);
@@ -591,22 +606,22 @@ void start()
     else if (playGame == 'N') 
     {
         cout << "We will be waiting for you to come back and play.\n";
-        start(player);
+        start();
     }
     else 
     {
         cout << "that is not an option. Please select one of the options\n";
-        start(player);
+        start();
     }
 }
 
 // Ghost fight in room 5
-void ghostFiveFight(Player &player) {
-    int ghostFiveHealth = 20;
+void ghostFiveFight(Player &player, BaseEnemy &ghostFive) 
+{
     char playerAttack;
-    if (ghostFiveAlive == true) 
+    if (ghostFive.enemyAliveOut() == true) 
     {
-        while (playerHealth > 0 && ghostFiveHealth > 0) 
+        while (player.getHealth() > 0 && ghostFive.health > 0) 
         {
             cout << "You see a ghost blocking your way. What do you do. Fight (F), "
                 "Check (C), Run (R)\n";
@@ -615,45 +630,47 @@ void ghostFiveFight(Player &player) {
             if (playerAttack == 'F') 
             {
                 cout << "you managed to get a hit on the enemy\n";
-                ghostFiveHealth - 20;
+                ghostFive.health - 20;
                 cout << "You killed the ghost\n";
-                ghostFiveAlive = false;
+                ghostFive.deadOrAlive(false);
                 break;
             }
             else if (playerAttack == 'C') 
             {
-                cout << "\n Greg\nCreature: Ghost\nHealth:" << ghostFiveHealth << "\nDefence: 0\nAttack: 5 \nSpeed: 3\n";
+                cout << "\n Greg\nCreature: Ghost\nHealth:" << ghostFive.health << "\nDefence: 0\nAttack: "<< ghostFive.damage <<"\nSpeed: 3\n";
                 cout << "The ghost attacked you for 5 damage\n";
-                playerHealth = playerHealth - 5;
+                player.setHealth(player.getHealth() - 5);
                 playerKilled(player);
                 ghostFiveFight(player);
             }
-            else if (playerAttack == 'R') {
+            else if (playerAttack == 'R') 
+            {
                 cout << "You tried to escape but the ghost blocked the way\n";
                 cout << "The ghost attacked you for 5 damage\n";
-                playerHealth = playerHealth - 5;
+                player.setHealth(player.getHealth() - 5);
                 playerKilled(player);
                 ghostFiveFight(player);
             }
-            else {
+            else 
+            {
                 cout << "That is not an opton please select one of the options\n";
                 ghostFiveFight(player);
             }
         }
     }
-    else if (ghostFiveAlive == false) {
+    else if (ghostFive.enemyAliveOut() == false) 
+    {
         cout << "You have aleady killed the ghost.\n";
     }
 }
 
 // Ghost fight in room 8
-void ghostElevenFight(Player &player) 
+void ghostElevenFight(Player &player, BaseEnemy &ghostEleven) 
 {
-    int ghostElevenHealth = 20;
     char playerAttack;
-    if (ghostElevenAlive == true) 
+    if (ghostEleven.enemyAliveOut() == true) 
     {
-        while (playerHealth > 0 && ghostElevenHealth > 0) 
+        while (player.getHealth() > 0 && ghostEleven.health > 0) 
         {
             cout << "You see a ghost blocking your way. What do you do. Fight (F), Check (C), Run (R)\n";
             cin >> playerAttack;
@@ -661,16 +678,16 @@ void ghostElevenFight(Player &player)
             if (playerAttack == 'F') 
             {
                 cout << "you managed to get a hit on the enemy\n";
-                ghostElevenHealth - 20;
+                ghostEleven.health - 20;
                 cout << "You killed the ghost\n";
-                ghostElevenAlive = false;
+                ghostEleven.deadOrAlive(false);
                 break;
             }
             else if (playerAttack == 'C') 
             {
-                cout << "\n Greg\nCreature: Ghost\nHealth:" << ghostElevenHealth << "\nDefence: 0\nAttack: 5 \nSpeed: 3\n";
+                cout << "\n Greg\nCreature: Ghost\nHealth:" << ghostEleven.health << "\nDefence: 0\nAttack: "<< ghostEleven.damage <<"\nSpeed: 3\n";
                 cout << "The ghost attacked you for 5 damage\n";
-                playerHealth = playerHealth - 5;
+                player.setHealth(player.getHealth() - 5);
                 playerKilled(player);
                 ghostElevenFight(player);
             }
@@ -678,7 +695,7 @@ void ghostElevenFight(Player &player)
             {
                 cout << "You tried to escape but the ghost blocked the way\n";
                 cout << "The ghost attacked you for 5 damage\n";
-                playerHealth = playerHealth - 5;
+                player.setHealth(player.getHealth() - 5);
                 playerKilled(player);
                 ghostElevenFight(player);
             }
@@ -689,20 +706,19 @@ void ghostElevenFight(Player &player)
             }
         }
     }
-    else if (ghostElevenAlive == false) 
+    else if (ghostEleven.enemyAliveOut() == false) 
     {
         cout << "You have aleady killed the ghost.\n";
     }
 }
 
 // Ghost fight in room 13
-void ghostThirteenFight(Player &player) 
+void ghostThirteenFight(Player &player, BaseEnemy &ghostThirteen) 
 {
-    int ghostThirteenHealth = 20;
     char playerAttack;
-    if (ghostThirteenAlive == true) 
+    if (ghostThirteen.enemyAliveOut() == true) 
     {
-        while (playerHealth > 0 && ghostThirteenHealth > 0) 
+        while (player.getHealth() > 0 && ghostThirteen.health > 0) 
         {
             cout << "You see a ghost blocking your way. What do you do. Fight (F), Check (C), Run (R)\n";
             cin >> playerAttack;
@@ -710,16 +726,16 @@ void ghostThirteenFight(Player &player)
             if (playerAttack == 'F') 
             {
                 cout << "you managed to get a hit on the enemy\n";
-                ghostThirteenHealth - 20;
+                ghostThirteen.health - 20;
                 cout << "You killed the ghost\n";
-                ghostThirteenAlive = false;
+                ghostThirteen.deadOrAlive(false);
                 break;
             }
             else if (playerAttack == 'C') 
             {
-                cout << "\n Greg\nCreature: Ghost\nHealth:" << ghostThirteenHealth << "\nDefence: 0\nAttack: 5 \nSpeed: 3\n";
+                cout << "\n Greg\nCreature: Ghost\nHealth:" << ghostThirteen.health << "\nDefence: 0\nAttack: "<< ghostThirteen.damage <<"\nSpeed: 3\n";
                 cout << "The ghost attacked you for 5 damage\n";
-                playerHealth = playerHealth - 5;
+                player.setHealth(player.getHealth() - 5);
                 playerKilled(player);
                 ghostThirteenFight(player);
             }
@@ -727,7 +743,7 @@ void ghostThirteenFight(Player &player)
             {
                 cout << "You tried to escape but the ghost blocked the way\n";
                 cout << "The ghost attacked you for 5 damage\n";
-                playerHealth = playerHealth - 5;
+                player.setHealth(player.getHealth() - 5);
                 playerKilled(player);
                 ghostThirteenFight(player);
             }
@@ -738,7 +754,7 @@ void ghostThirteenFight(Player &player)
             }
         }
     }
-    else if (ghostThirteenAlive == false) 
+    else if (ghostThirteen.enemyAliveOut() == false) 
     {
         cout << "You have aleady killed the ghost.\n";
     }
@@ -768,7 +784,7 @@ void cthulhuFight(Player &player)
                     cout << "You hit Cthulhu\n";
                     cout << "Cthulhu's turn!\n";
                     cout << "Cthulhu attacked you for 25 damage\n";
-                    playerHealth = playerHealth - 25;
+                    player.setHealth(player.getHealth() - 5);
                     if (cthulhuHealth <= 0)
                     {
                         cthulhuAlive = false;
@@ -780,7 +796,7 @@ void cthulhuFight(Player &player)
             {
                 cout << "\nCthulu\nCreature: Ancient God\nHealth: " << cthulhuHealth << "\nDefence: 35\nAttack: 25\nSpeed: inmobile\n";
                 cout << "Cthulhu attacked you for 25 damage\n";
-                playerHealth -= 25;
+                player.setHealth(player.getHealth() - 25);;
                 playerKilled(player);
                 cthulhuFight(player);
             }
@@ -788,7 +804,7 @@ void cthulhuFight(Player &player)
             {
                 cout << "You tried to escape but there is way no way out.\n";
                 cout << "Cthulhu attacked you for 25 damage\n";
-                playerHealth = playerHealth - 25;
+                player.setHealth(player.getHealth() - 25);
                 playerKilled(player);
                 cthulhuFight(player);
             }
@@ -825,7 +841,7 @@ void dragonFight(Player &player)
                 dragonHealth -= 20;
                 cout << "Sami's turn!\n";
                 cout << "Sami attacked you for 20 damage\n";
-                playerHealth -= 20;
+                player.setHealth(player.getHealth() - 20);
                 if (dragonHealth <= 0) 
                 {
                     dragonAlive = false;
@@ -838,7 +854,7 @@ void dragonFight(Player &player)
                 cout << "\nSami\nCreature: Dragon\nHealth: " << dragonHealth
                     << "\nDefence: 10\nAttack: 20\nSpeed:40\n";
                 cout << "Sami attacked you for 5 damage\n";
-                playerHealth -= 20;
+                player.setHealth(player.getHealth() - 20);
                 playerKilled(player);
                 dragonFight(player);
             }
@@ -846,7 +862,7 @@ void dragonFight(Player &player)
             {
                 cout << "You tried to escape but Sami's tail blocked the way\n";
                 cout << "Sami attacked you for 5 damage\n";
-                playerHealth -= 20;
+                player.setHealth(player.getHealth() - 20);
                 playerKilled(player);
                 dragonFight(player);
             }

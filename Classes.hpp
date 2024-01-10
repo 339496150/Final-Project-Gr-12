@@ -110,7 +110,7 @@ class BaseEnemy
         enemyAlive = deathCheck;
     }
 
-    bool enemyDead()
+    bool enemyAliveOut()
     {
         return enemyAlive;
     }
