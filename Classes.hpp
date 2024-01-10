@@ -70,7 +70,7 @@ class MiniBoss
         dragonAlive = deathCheck;
     }
 
-    bool dragonDead()
+    bool dragonAliveOut()
     {
         return dragonAlive;
     }
@@ -90,7 +90,7 @@ class Boss
         cthulhuAlive = deathCheck;
     }
 
-    bool cthulhuDead()
+    bool cthulhuAliveOut()
     {
         return cthulhuAlive;
     }

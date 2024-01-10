@@ -51,7 +51,7 @@ void startingRoom(Player &player)
     }
 }
 
-// Room 2: shane's room
+// Room 2
 void roomTwo(Player &player) 
 {
     char moveRoomTwo;
@@ -824,13 +824,12 @@ void cthulhuFight(Player &player)
 }
 
 // Dragon fight in room 4
-void dragonFight(Player &player) 
+void dragonFight(Player &player, MiniBoss dragon) 
 {
     char playerAttack;
-    int dragonHealth = 30;
-    if (dragonAlive == true) 
+    if (dragon.deadOrAlive(true)) 
     {
-        while (playerHealth > 0 && dragonHealth > 0) 
+        while (player.getHealth() > 0 && dragon.health > 0) 
         {
             cout << "Fight (F), Check (C), Run (R)\n";
             cin >> playerAttack;
@@ -838,21 +837,20 @@ void dragonFight(Player &player)
             if (playerAttack == 'F') 
             {
                 cout << "You managed to hit Sami\n";
-                dragonHealth -= 20;
+                dragon.health -= player.getDamage();
                 cout << "Sami's turn!\n";
                 cout << "Sami attacked you for 20 damage\n";
                 player.setHealth(player.getHealth() - 20);
-                if (dragonHealth <= 0) 
+                if (dragon.health <= 0) 
                 {
-                    dragonAlive = false;
+                    dragon.deadOrAlive(false);
                     cout << "You have killed Sami.\n";
                     break;
                 }
             }
             else if (playerAttack == 'C')
             {
-                cout << "\nSami\nCreature: Dragon\nHealth: " << dragonHealth
-                    << "\nDefence: 10\nAttack: 20\nSpeed:40\n";
+                cout << "\nSami\nCreature: Dragon\nHealth: " << dragon.health << "\nDefence: 10\nAttack: " << dragon.damage << "\nSpeed:40\n";
                 cout << "Sami attacked you for 5 damage\n";
                 player.setHealth(player.getHealth() - 20);
                 playerKilled(player);
@@ -873,7 +871,7 @@ void dragonFight(Player &player)
             }
         }
     }
-    else if (dragonAlive == false)
+    else if (dragon.dragonAliveOut() == false)
     {
         cout << "You have aleady killed the Sami the Dragon.\n";
     }
@@ -891,5 +889,5 @@ void playerKilled()
 
 int main() 
 { 
-    start(player); 
+    start(); 
 }
