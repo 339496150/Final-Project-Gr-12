@@ -1,38 +1,35 @@
 #include <iostream>
 #include <string>
+#include "Classes.hpp"
 
 using namespace std;
 
-// Global Variables
-int playerHealth = 100;
-bool haveKey = false, keyAquired = false, ghostFiveAlive = true, ghostElevenAlive = true, ghostThirteenAlive = true, cthulhuAlive = true, dragonAlive = true;
-
 // Allows all the functions to call one another
-void startingRoom();
-void roomTwo();
-void roomThree();
-void roomMiniBoss();
-void roomFive();
-void roomSix();
-void roomSeven();
-void roomEight();
-void roomNine();
-void roomTen();
-void roomEleven();
-void roomTwelve();
-void roomThirteen();
-void roomFourteen();
-void roomFifteen();
-void roomBoss();
-void cthulhuFight();
-void dragonFight();
-void ghostFiveFight();
-void ghostElevenFight();
-void ghostThirteenFight();
-void playerKilled();
+void startingRoom(Player &player);
+void roomTwo(Player &player);
+void roomThree(Player &player);
+void roomMiniBoss(Player &player);
+void roomFive(Player &player);
+void roomSix(Player &player);
+void roomSeven(Player &player);
+void roomEight(Player &player);
+void roomNine(Player &player);
+void roomTen(Player &player);
+void roomEleven(Player &player);
+void roomTwelve(Player &player);
+void roomThirteen(Player &player);
+void roomFourteen(Player &player);
+void roomFifteen(Player &player);
+void roomBoss(Player &player);
+void cthulhuFight(Player &player);
+void dragonFight(Player &player);
+void ghostFiveFight(Player &player);
+void ghostElevenFight(Player &player);
+void ghostThirteenFight(Player &player);
+void playerKilled(Player &player);
 
 // First room
-void startingRoom() 
+void startingRoom(Player &player) 
 {
     char moveRoomOne;
     cout << "Welcome to room 1\n";
@@ -41,21 +38,21 @@ void startingRoom()
     moveRoomOne = toupper(moveRoomOne);
     if (moveRoomOne == 'A') 
     {
-        roomTwo();
+        roomTwo(player);
     }
     else if (moveRoomOne == 'S') 
     {
-        roomFive();
+        roomFive(player);
     }
     else 
     {
         cout << "There is no door there. Please use your brain.\n";
-        startingRoom();
+        startingRoom(player);
     }
 }
 
 // Room 2
-void roomTwo() 
+void roomTwo(Player &player) 
 {
     char moveRoomTwo;
     cout << "Welcome to room 2\n";
@@ -64,25 +61,25 @@ void roomTwo()
     moveRoomTwo = toupper(moveRoomTwo);
     if (moveRoomTwo == 'A') 
     {
-        roomThree();
+        roomThree(player);
     }
     else if (moveRoomTwo == 'D') 
     {
-        startingRoom();
+        startingRoom(player);
     }
     else if (moveRoomTwo == 'S') 
     {
-        roomSix();
+        roomSix(player);
     }
     else 
     {
         cout << "There is no door there. please use your brain\n";
-        roomTwo();
+        roomTwo(player);
     }
 }
 
 // Room 3
-void roomThree() 
+void roomThree(Player &player) 
 {
     char moveRoomThree;
     cout << "Welcome to room 3\n";
@@ -91,54 +88,54 @@ void roomThree()
     moveRoomThree = toupper(moveRoomThree);
     if (moveRoomThree == 'A') 
     {
-        roomMiniBoss();
+        roomMiniBoss(player);
     }
     else if (moveRoomThree == 'D') 
     {
-        roomTwo();
+        roomTwo(player);
     }
     else if (moveRoomThree == 'S') 
     {
-        roomSeven();
+        roomSeven(player);
     }
     else 
     {
         cout << "There is no door there. Please use your brain.\n";
-        roomThree();
+        roomThree(player);
     }
 }
 
 // Room 4 with mini boss
-void roomMiniBoss()
+void roomMiniBoss(Player &player)
 {
     char moveRoomFour;
     cout << "Welcome to room 4\n";
     cout << "As you enter the room you see a large dragon resting on the ground, you deside to name it Sami.\n";
-    dragonFight();
+    dragonFight(player);
     cout << "Walk down to room 8 (S) or walk right to room 3 (D):  ";
     cin >> moveRoomFour;
     moveRoomFour = toupper(moveRoomFour);
     if (moveRoomFour == 'S') 
     {
-        roomEight();
+        roomEight(player);
     }
     else if (moveRoomFour == 'D') 
     {
-        roomThree();
+        roomThree(player);
     }
     else 
     {
         cout << "There is no door there. Please use your brain.\n";
-        roomMiniBoss();
+        roomMiniBoss(player);
     }
 }
 
 // Room 5
-void roomFive() 
+void roomFive(Player &player) 
 {
     char key, moveRoomFive;
-    ghostFiveFight();
-    if (keyAquired == false) 
+    ghostFiveFight(player);
+    if (player.keyCheck() == false) 
     {
         cout << "Welcome to room 5\n";
         cout << "There is a key on the ground pick it up (P) or leave it (L):  ";
@@ -147,7 +144,7 @@ void roomFive()
         if (key == 'P') 
         {
             cout << "you picked up the key\n";
-            keyAquired = true;
+            player.getKey(true);
         }
         else if (key == 'L') 
         {
@@ -156,10 +153,10 @@ void roomFive()
         else 
         {
             cout << "That is an invalid imput\n";
-            roomFive();
+            roomFive(player);
         }
     }
-    else if (keyAquired == true) 
+    else if (player.keyCheck() == true) 
     {
 
         cout << "You have already grabbed the key\n";
@@ -169,226 +166,263 @@ void roomFive()
     moveRoomFive = toupper(moveRoomFive);
     if (moveRoomFive == 'A') 
     {
-        roomSix();
+        roomSix(player);
     }
     else if (moveRoomFive == 'W') 
     {
-        startingRoom();
+        startingRoom(player);
     }
     else if (moveRoomFive == 'S') 
     {
-        roomNine();
+        roomNine(player);
     }
-    else {
+    else 
+    {
         cout << "There is no door there. Please use your brain.\n";
-        roomFive();
+        roomFive(player);
     }
 }
 
 // Room 6
-void roomSix() 
+void roomSix(Player &player) 
 {
     char moveRoomSix;
     cout << "Welcome to room 6\n";
     cout << "Walk up to room 2 (W), walk down to room 10 (S), walk left to room 7 (A), or walk right to room 5 (D):  ";
     cin >> moveRoomSix;
     moveRoomSix = toupper(moveRoomSix);
-    if (moveRoomSix == 'A') {
-        roomSeven();
+    if (moveRoomSix == 'A') 
+    {
+        roomSeven(player);
     }
-    else if (moveRoomSix == 'W') {
-        roomTwo();
+    else if (moveRoomSix == 'W') 
+    {
+        roomTwo(player);
     }
-    else if (moveRoomSix == 'S') {
-        roomTen();
+    else if (moveRoomSix == 'S') 
+    {
+        roomTen(player);
     }
-    else if (moveRoomSix == 'D') {
-        roomFive();
+    else if (moveRoomSix == 'D') 
+    {
+        roomFive(player);
     }
-    else {
+    else 
+    {
         cout << "There is no door there. Please use your brain.\n";
-        roomSix();
+        roomSix(player);
     }
 }
 
 // Room 7
-void roomSeven() 
+void roomSeven(Player &player) 
 {
     char moveRoomSeven;
     cout << "Welcome to room 7\n";
     cout << "Walk up to room 3 (W), walk down to room 11 (S), walk left to room 8 (A), or walk right to room 6 (D):  ";
     cin >> moveRoomSeven;
     moveRoomSeven = toupper(moveRoomSeven);
-    if (moveRoomSeven == 'W') {
-        roomThree();
+    if (moveRoomSeven == 'W') 
+    {
+        roomThree(player);
     }
-    else if (moveRoomSeven == 'A') {
-        roomEight();
+    else if (moveRoomSeven == 'A') 
+    {
+        roomEight(player);
     }
-    else if (moveRoomSeven == 'S') {
-        roomEleven();
+    else if (moveRoomSeven == 'S') 
+    {
+        roomEleven(player);
     }
-    else if (moveRoomSeven == 'D') {
-        roomSix();
+    else if (moveRoomSeven == 'D') 
+    {
+        roomSix(player);
     }
     else {
         cout << "There is no door there. Please use your brain.\n";
-        roomSeven();
+        roomSeven(player);
     }
 }
 
 // Room 8
-void roomEight() 
+void roomEight(Player &player) 
 {
     char healEight, moveRoomEight;
     cout << "Welcome to room 8\n";
     cout << "You see a campfire in the middle of the room.\n";
-    cout << "You heal " << playerHealth << " HP\n";
+    cout << "Your health " << player.getHealth() << " HP\n";
     cout << "The campfire's warmpth is comforting to you. Would you like to heal. (Y/N):  ";
     cin >> healEight;
     healEight = toupper(healEight);
-    if (healEight == 'Y') {
-        playerHealth = (100);
-        cout << "You healed " << playerHealth << " HP\n";
+    if (healEight == 'Y') 
+    {
+        player.setHealth(100);
+        cout << "You healed to " << player.getHealth() << " HP\n";
     }
-    else if (healEight == 'N') {
+    else if (healEight == 'N') 
+    {
         cout << "You chose not to heal. Kinda not a big brain play.\n";
     }
-    else {
-        cout << "That is not one of the options. Please choose one of the "
-            "options.\n";
-        roomEight();
+    else 
+    {
+        cout << "That is not one of the options. Please choose one of the options.\n";
+        roomEight(player);
     }
     cout << "Walk up to room 4 (W), walk down to room 16 (S), or walk right to room 7 (D):  ";
     cin >> moveRoomEight;
     moveRoomEight = toupper(moveRoomEight);
-    if (moveRoomEight == 'D') {
-        roomSeven();
+    if (moveRoomEight == 'D') 
+    {
+        roomSeven(player);
     }
-    else if (moveRoomEight == 'W') {
-        roomMiniBoss();
+    else if (moveRoomEight == 'W') 
+    {
+        roomMiniBoss(player);
     }
-    else if (moveRoomEight == 'S') {
-        if (keyAquired == true) {
-            roomBoss();
+    else if (moveRoomEight == 'S') 
+    {
+        if (player.keyCheck() == true) 
+        {
+            roomBoss(player);
         }
-        else if (keyAquired == false) {
+        else if (player.keyCheck() == false) 
+        {
             cout << "You dont have the key to get into this room.\n";
-            roomEight();
+            roomEight(player);
         }
     }
-    else {
+    else 
+    {
         cout << "There is no door there. Please use your brain.\n";
-        roomEight();
+        roomEight(player);
     }
 }
 
 // Room 9
-void roomNine()
+void roomNine(Player &player)
 {
     char moveRoomNine;
     cout << "Welcome to room 9\n";
     cout << "Walk up to room 5 (W), walk down to room 12 (S), or walk left to room 10 (A):  ";
     cin >> moveRoomNine;
     moveRoomNine = toupper(moveRoomNine);
-    if (moveRoomNine == 'A') {
-        roomTen();
+    if (moveRoomNine == 'A') 
+    {
+        roomTen(player);
     }
-    else if (moveRoomNine == 'W') {
-        roomFive();
+    else if (moveRoomNine == 'W') 
+    {
+        roomFive(player);
     }
-    else if (moveRoomNine == 'S') {
-        roomTwelve();
+    else if (moveRoomNine == 'S') 
+    {
+        roomTwelve(player);
     }
-    else {
+    else 
+    {
         cout << "There is no door there. Please use your brain.\n";
-        roomNine();
+        roomNine(player);
     }
 }
 
 // Room 10 THERE IS A TRAP IN THIS ROOM IF YOU TRY TO ENTER ROOM 11
-void roomTen() 
+void roomTen(Player &player) 
 {
     char healTen, moveRoomTen;
     cout << "Welcome to room 10\n";
     cout << "You see a campfire in the middle of the room.\n";
-    cout << "You heal " << playerHealth << " HP\n";
+    cout << "Your health " << player.getHealth() << " HP\n";
     cout << "The campfire's warmpth is comforting to you. Would you like to heal. (Y/N):  ";
     cin >> healTen;
     healTen = toupper(healTen);
-    if (healTen == 'Y') {
-        playerHealth = 100;
-        cout << "you healed " << playerHealth << " HP\n";
+    if (healTen == 'Y') 
+    {
+        player.setHealth(100);
+        cout << "You healed to " << player.getHealth() << " HP\n";
     }
-    else if (healTen == 'N') {
+    else if (healTen == 'N') 
+    {
         cout << "You chose not to heal. Kinda not a big brain play.\n";
     }
-    else {
+    else
+    {
         cout << "That is not one of the options. Please choose one of the options.\n";
-        roomTen();
+        roomTen(player);
     }
     cout << "Walk up to room 6 (W), walk down to room 14 (S), walk left to room 11 (A), or walk back to room 9 (D):  ";
     cin >> moveRoomTen;
     moveRoomTen = toupper(moveRoomTen);
-    if (moveRoomTen == 'W') {
-        roomSix();
+    if (moveRoomTen == 'W') 
+    {
+        roomSix(player);
     }
-    else if (moveRoomTen == 'A') {
+    else if (moveRoomTen == 'A') 
+    {
         cout << "As you walk through the hall way you see spikes poking out of the wall\n";
         cout << "As you walk past them they activate and you get hit\n";
         cout << "The spikes deal 50 damage\n";
-        playerHealth = playerHealth - 50;
-        playerKilled();
-        cout << "You have " << playerHealth << "HP.\n\n";
-        roomEleven();
+        player.setHealth(player.getHealth() - 50);
+        playerKilled(player);
+        cout << "You have " << player.getHealth() << "HP.\n\n";
+        roomEleven(player);
     }
-    else if (moveRoomTen == 'S') {
-        roomFourteen();
+    else if (moveRoomTen == 'S') 
+    {
+        roomFourteen(player);
     }
-    else if (moveRoomTen == 'D') {
-        roomNine();
+    else if (moveRoomTen == 'D') 
+    {
+        roomNine(player);
     }
-    else {
+    else 
+    {
         cout << "There is no door there. Please use your brain.\n";
-        roomTen();
+        roomTen(player);
     }
 }
 
 // Room 11
-void roomEleven() 
+void roomEleven(Player &player) 
 {
     char moveRoomEleven;
     cout << "Welcome to room 11\n";
-    ghostElevenFight();
+    ghostElevenFight(player);
     cout << "Walk up to room 7 (W), walk down to room 15 (S), walk left to room 16 (A), or walk right to room 10 (D):  ";
     cin >> moveRoomEleven;
     moveRoomEleven = toupper(moveRoomEleven);
-    if (moveRoomEleven == 'W') {
-        roomSeven();
+    if (moveRoomEleven == 'W') 
+    {
+        roomSeven(player);
     }
-    else if (moveRoomEleven == 'A') {
-        if (keyAquired == true) {
-            roomBoss();
+    else if (moveRoomEleven == 'A') 
+    {
+        if (keyAquired == true) 
+        {
+            roomBoss(player);
         }
-        else if (keyAquired == false) {
+        else if (keyAquired == false) 
+        {
             cout << "You dont have the key to get into this room\n";
-            roomEleven();
+            roomEleven(player);
         }
     }
-    else if (moveRoomEleven == 'S') {
-        roomFifteen();
+    else if (moveRoomEleven == 'S') 
+    {
+        roomFifteen(player);
     }
-    else if (moveRoomEleven == 'D') {
-        roomTen();
+    else if (moveRoomEleven == 'D') 
+    {
+        roomTen(player);
     }
-    else {
+    else 
+    {
         cout << "There is no door there. Please use your brain.\n";
-        roomEleven();
+        roomEleven(player);
     }
 }
 
 // Room 12 THIS ROOM HAS A TRAP IF YOU TRY TO GO TO ROOM 13
-void roomTwelve() 
+void roomTwelve(Player &player) 
 {
     char moveRoomTwelve;
     cout << "Welcome to room 12\n";
@@ -396,52 +430,52 @@ void roomTwelve()
     cin >> moveRoomTwelve;
     moveRoomTwelve = toupper(moveRoomTwelve);
     if (moveRoomTwelve == 'W') {
-        roomNine();
+        roomNine(player);
     }
     else if (moveRoomTwelve == 'A') {
-        roomFourteen();
+        roomFourteen(player);
     }
     else if (moveRoomTwelve == 'S') {
         cout << "As you walk through the hall way you see spikes poking out of the wall\n";
         cout << "As you walk past them they activate and you get hit.\n";
         cout << "The spikes deal 50 damage\n";
         playerHealth = playerHealth - 50;
-        playerKilled();
+        playerKilled(player);
         cout << "You have " << playerHealth << " HP\n";
-        roomThirteen();
+        roomThirteen(player);
     }
     else {
         cout << "There is no door there. Please use your brain.\n";
-        roomTwelve();
+        roomTwelve(player);
     }
 }
 
 // Room 13
-void roomThirteen() 
+void roomThirteen(Player &player) 
 {
     char moveRoomThirteen;
-    ghostThirteenFight();
+    ghostThirteenFight(player);
     cout << "Welcome to room 13\n";
     cout << "Walk up to room 14 (W), walk left to room 15 (A), or walk right to room 12 (D):  ";
     cin >> moveRoomThirteen;
     moveRoomThirteen = toupper(moveRoomThirteen);
     if (moveRoomThirteen == 'W') {
-        roomFourteen();
+        roomFourteen(player);
     }
     else if (moveRoomThirteen == 'A') {
-        roomFifteen();
+        roomFifteen(player);
     }
     else if (moveRoomThirteen == 'D') {
-        roomTwelve();
+        roomTwelve(player);
     }
     else {
         cout << "There is no door there. Please use your brain.\n";
-        roomThirteen();
+        roomThirteen(player);
     }
 }
 
 // Room 14
-void roomFourteen() 
+void roomFourteen(Player &player) 
 {
     char moveRoomFourteen;
     cout << "Welcome to room 14\n";
@@ -449,25 +483,25 @@ void roomFourteen()
     cin >> moveRoomFourteen;
     moveRoomFourteen = toupper(moveRoomFourteen);
     if (moveRoomFourteen == 'W') {
-        roomTen();
+        roomTen(player);
     }
     else if (moveRoomFourteen == 'A') {
-        roomFifteen();
+        roomFifteen(player);
     }
     else if (moveRoomFourteen == 'S') {
-        roomThirteen();
+        roomThirteen(player);
     }
     else if (moveRoomFourteen == 'D') {
-        roomTwelve();
+        roomTwelve(player);
     }
     else {
         cout << "There is no door there. Please use your brain.\n";
-        roomFourteen();
+        roomFourteen(player);
     }
 }
 
 // Room 15
-void roomFifteen() 
+void roomFifteen(Player &player) 
 {
     char healFifteen, moveRoomFifteen;
     cout << "Welcome to room 8\n";
@@ -488,52 +522,53 @@ void roomFifteen()
     else 
     {
         cout << "That is not one of the options. Please choose one of the options.\n";
-        roomFifteen();
+        roomFifteen(player);
     }
     cout << "Walk up to room 11 (W), walk down to room 14 (S), walk left to room 16 (A), or walk right to room 13 (D):  ";
     cin >> moveRoomFifteen;
     moveRoomFifteen = toupper(moveRoomFifteen);
     if (moveRoomFifteen == 'W') 
     {
-        roomEleven();
+        roomEleven(player);
     }
     else if (moveRoomFifteen == 'S') 
     {
-        roomFourteen();
+        roomFourteen(player);
     }
     else if (moveRoomFifteen == 'A') 
     {
         if (keyAquired == true) 
         {
-            roomBoss();
+            roomBoss(player);
         }
         else if (keyAquired == false) 
         {
             cout << "You dont have the key to get into this room\n";
-            roomFifteen();
+            roomFifteen(player);
         }
     }
     else if (moveRoomFifteen == 'D') 
     {
-        roomThirteen();
+        roomThirteen(player);
     }
     else 
     {
         cout << "There is no door there. Please use your brain.\n";
-        roomFifteen();
+        roomFifteen(player);
     }
 }
 
 // Room 16 with Final Boss
-void roomBoss() 
+void roomBoss(Player &player) 
 {
     cout << "Congratulations you have made it to the final boss, Cthulu\n";
-    cthulhuFight();
+    cthulhuFight(player);
 }
 
 // Main Menu
 void start() 
 {
+    Player player;
     char playGame;
     string playerName;
     cout << "Would you like to play Ancient Abyss (Y/N):  ";
@@ -547,22 +582,26 @@ void start()
         cout << playerName << " awakens in a room with a campfire, unsure of what to do " << playerName << " checks the walls for any hidden things.\n";
         cout << "As " << playerName << " checks the walls they find a list of things to do. To escape make it to the end and defeat Cuthulu, find the Dragon somewhere in the rooms and ";
         cout << "kill it. But don't die while your at it or you lose.\n";
-        startingRoom();
+        player.setHealth(100);
+        player.setDamage(20);
+        player.getKey(false);
+        player.playerAlive(true);
+        startingRoom(player);
     }
     else if (playGame == 'N') 
     {
         cout << "We will be waiting for you to come back and play.\n";
-        start();
+        start(player);
     }
     else 
     {
         cout << "that is not an option. Please select one of the options\n";
-        start();
+        start(player);
     }
 }
 
 // Ghost fight in room 5
-void ghostFiveFight() {
+void ghostFiveFight(Player &player) {
     int ghostFiveHealth = 20;
     char playerAttack;
     if (ghostFiveAlive == true) 
@@ -586,19 +625,19 @@ void ghostFiveFight() {
                 cout << "\n Greg\nCreature: Ghost\nHealth:" << ghostFiveHealth << "\nDefence: 0\nAttack: 5 \nSpeed: 3\n";
                 cout << "The ghost attacked you for 5 damage\n";
                 playerHealth = playerHealth - 5;
-                playerKilled();
-                ghostFiveFight();
+                playerKilled(player);
+                ghostFiveFight(player);
             }
             else if (playerAttack == 'R') {
                 cout << "You tried to escape but the ghost blocked the way\n";
                 cout << "The ghost attacked you for 5 damage\n";
                 playerHealth = playerHealth - 5;
-                playerKilled();
-                ghostFiveFight();
+                playerKilled(player);
+                ghostFiveFight(player);
             }
             else {
                 cout << "That is not an opton please select one of the options\n";
-                ghostFiveFight();
+                ghostFiveFight(player);
             }
         }
     }
@@ -608,7 +647,7 @@ void ghostFiveFight() {
 }
 
 // Ghost fight in room 8
-void ghostElevenFight() 
+void ghostElevenFight(Player &player) 
 {
     int ghostElevenHealth = 20;
     char playerAttack;
@@ -632,21 +671,21 @@ void ghostElevenFight()
                 cout << "\n Greg\nCreature: Ghost\nHealth:" << ghostElevenHealth << "\nDefence: 0\nAttack: 5 \nSpeed: 3\n";
                 cout << "The ghost attacked you for 5 damage\n";
                 playerHealth = playerHealth - 5;
-                playerKilled();
-                ghostElevenFight();
+                playerKilled(player);
+                ghostElevenFight(player);
             }
             else if (playerAttack == 'R') 
             {
                 cout << "You tried to escape but the ghost blocked the way\n";
                 cout << "The ghost attacked you for 5 damage\n";
                 playerHealth = playerHealth - 5;
-                playerKilled();
-                ghostElevenFight();
+                playerKilled(player);
+                ghostElevenFight(player);
             }
             else 
             {
                 cout << "That is not an opton please select one of the options\n";
-                ghostElevenFight();
+                ghostElevenFight(player);
             }
         }
     }
@@ -657,7 +696,7 @@ void ghostElevenFight()
 }
 
 // Ghost fight in room 13
-void ghostThirteenFight() 
+void ghostThirteenFight(Player &player) 
 {
     int ghostThirteenHealth = 20;
     char playerAttack;
@@ -681,21 +720,21 @@ void ghostThirteenFight()
                 cout << "\n Greg\nCreature: Ghost\nHealth:" << ghostThirteenHealth << "\nDefence: 0\nAttack: 5 \nSpeed: 3\n";
                 cout << "The ghost attacked you for 5 damage\n";
                 playerHealth = playerHealth - 5;
-                playerKilled();
-                ghostThirteenFight();
+                playerKilled(player);
+                ghostThirteenFight(player);
             }
             else if (playerAttack == 'R')
             {
                 cout << "You tried to escape but the ghost blocked the way\n";
                 cout << "The ghost attacked you for 5 damage\n";
                 playerHealth = playerHealth - 5;
-                playerKilled();
-                ghostThirteenFight();
+                playerKilled(player);
+                ghostThirteenFight(player);
             }
             else 
             {
                 cout << "That is not an opton please select one of the options\n";
-                ghostThirteenFight();
+                ghostThirteenFight(player);
             }
         }
     }
@@ -706,7 +745,7 @@ void ghostThirteenFight()
 }
 
 // Final Boss Fight in room 16 (roomBoss)
-void cthulhuFight()
+void cthulhuFight(Player &player)
 {
     int cthulhuHealth = 50;
     char playerAttack;
@@ -721,7 +760,7 @@ void cthulhuFight()
             {
                 if (playerHealth <= 0)
                 {
-                    playerKilled();
+                    playerKilled(player);
                 }
                 else if (cthulhuHealth > 0)
                 {
@@ -733,7 +772,7 @@ void cthulhuFight()
                     if (cthulhuHealth <= 0)
                     {
                         cthulhuAlive = false;
-                        cthulhuFight();
+                        cthulhuFight(player);
                     }
                 }
             }
@@ -742,21 +781,21 @@ void cthulhuFight()
                 cout << "\nCthulu\nCreature: Ancient God\nHealth: " << cthulhuHealth << "\nDefence: 35\nAttack: 25\nSpeed: inmobile\n";
                 cout << "Cthulhu attacked you for 25 damage\n";
                 playerHealth -= 25;
-                playerKilled();
-                cthulhuFight();
+                playerKilled(player);
+                cthulhuFight(player);
             }
             else if (playerAttack == 'R')
             {
                 cout << "You tried to escape but there is way no way out.\n";
                 cout << "Cthulhu attacked you for 25 damage\n";
                 playerHealth = playerHealth - 25;
-                playerKilled();
-                cthulhuFight();
+                playerKilled(player);
+                cthulhuFight(player);
             }
             else
             {
                 cout << "That is not an opton please select one of the options\n";
-                cthulhuFight();
+                cthulhuFight(player);
             }
         }
     }
@@ -769,7 +808,7 @@ void cthulhuFight()
 }
 
 // Dragon fight in room 4
-void dragonFight() 
+void dragonFight(Player &player) 
 {
     char playerAttack;
     int dragonHealth = 30;
@@ -800,21 +839,21 @@ void dragonFight()
                     << "\nDefence: 10\nAttack: 20\nSpeed:40\n";
                 cout << "Sami attacked you for 5 damage\n";
                 playerHealth -= 20;
-                playerKilled();
-                dragonFight();
+                playerKilled(player);
+                dragonFight(player);
             }
             else if (playerAttack == 'R')
             {
                 cout << "You tried to escape but Sami's tail blocked the way\n";
                 cout << "Sami attacked you for 5 damage\n";
                 playerHealth -= 20;
-                playerKilled();
-                dragonFight();
+                playerKilled(player);
+                dragonFight(player);
             }
             else
             {
                 cout << "That is not an opton please select one of the options\n";
-                dragonFight();
+                dragonFight(player);
             }
         }
     }
@@ -836,5 +875,5 @@ void playerKilled()
 
 int main() 
 { 
-    start(); 
+    start(player); 
 }
