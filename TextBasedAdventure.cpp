@@ -51,7 +51,7 @@ void startingRoom(Player &player)
     }
 }
 
-// Room 2
+// Room 2: shane's room
 void roomTwo(Player &player) 
 {
     char moveRoomTwo;
