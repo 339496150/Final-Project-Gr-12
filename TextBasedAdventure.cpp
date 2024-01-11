@@ -22,7 +22,7 @@ void roomThirteen(Player &player);
 void roomFourteen(Player &player);
 void roomFifteen(Player &player);
 void roomBoss(Player &player);
-void cthulhuFight(Player &player);
+void cthulhuFight(Player &player, Boss &cthulhu);
 void dragonFight(Player &player, MiniBoss &dragon);
 void ghostFiveFight(Player &player, BaseEnemy &ghostFive);
 void ghostElevenFight(Player &player, BaseEnemy &ghostEleven);
@@ -582,8 +582,10 @@ void roomFifteen(Player &player)
 // Room 16 with Final Boss
 void roomBoss(Player &player) 
 {
+    Boss cthulhu;
+    cthulhu.deadOrAlive(true);
     cout << "Congratulations you have made it to the final boss, Cthulu\n";
-    cthulhuFight(player);
+    cthulhuFight(player, cthulhu);
 }
 
 // Main Menu
@@ -770,11 +772,11 @@ void ghostThirteenFight(Player &player, BaseEnemy &ghostThirteen)
 }
 
 // Final Boss Fight in room 16 (roomBoss)
-void cthulhuFight(Player &player)
+void cthulhuFight(Player &player, Boss &cthulhu)
 {
-    Boss cthulhu;
+    cthulhu.deadOrAlive(true);
     char playerAttack;
-    if (cthulhu.cthulhuAliveOut() == true)
+    if (cthulhu.killedCthulhu() == false)
     {
         while (player.getHealth() > 0 && cthulhu.health > 0)
         {
@@ -797,7 +799,8 @@ void cthulhuFight(Player &player)
                     if (cthulhu.health <= 0)
                     {
                         cthulhu.deadOrAlive(false);
-                        cthulhuFight(player);
+                        cthulhu.cthulhuDead(true);
+                        cthulhuFight(player, cthulhu);
                     }
                 }
             }
@@ -807,7 +810,7 @@ void cthulhuFight(Player &player)
                 cout << "Cthulhu attacked you for 25 damage\n";
                 player.setHealth(player.getHealth() - 25);
                 playerKilled(player);
-                cthulhuFight(player);
+                cthulhuFight(player, cthulhu);
             }
             else if (playerAttack == 'R')
             {
@@ -815,16 +818,16 @@ void cthulhuFight(Player &player)
                 cout << "Cthulhu attacked you for 25 damage\n";
                 player.setHealth(player.getHealth() - 25);
                 playerKilled(player);
-                cthulhuFight(player);
+                cthulhuFight(player, cthulhu);
             }
             else
             {
                 cout << "That is not an opton please select one of the options\n";
-                cthulhuFight(player);
+                cthulhuFight(player, cthulhu);
             }
         }
     }
-    else if (cthulhu.cthulhuAliveOut() == false) 
+    else if (cthulhu.killedCthulhu() == true) 
     {
         cout << "You have killed Cthulhu\n";
         cout << "Congratulations your prize is a Pizza Hut Hershey Cookie!!\n";

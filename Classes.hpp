@@ -91,6 +91,7 @@ class Boss
 {
     protected:
     bool cthulhuAlive;
+    bool cthulhuKilled;
 
     public:
     int health = 50;
@@ -104,6 +105,16 @@ class Boss
     bool cthulhuAliveOut()
     {
         return cthulhuAlive;
+    }
+
+    void cthulhuDead(bool killedIn)
+    {
+        cthulhuKilled = killedIn;
+    }
+
+    bool killedCthulhu()
+    {
+        return cthulhuKilled;
     }
 };
 
