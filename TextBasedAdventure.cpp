@@ -774,7 +774,6 @@ void ghostThirteenFight(Player &player, BaseEnemy &ghostThirteen)
 // Final Boss Fight in room 16 (roomBoss)
 void cthulhuFight(Player &player, Boss &cthulhu)
 {
-    cthulhu.deadOrAlive(true);
     char playerAttack;
     if (cthulhu.killedCthulhu() == false)
     {
