@@ -459,8 +459,9 @@ void roomTwelve(Player &player)
 // Room 13
 void roomThirteen(Player &player) 
 {
+    BaseEnemy ghostThirteen;
     char moveRoomThirteen;
-    ghostThirteenFight(player);
+    ghostThirteenFight(player, ghostThirteen);
     cout << "Welcome to room 13\n";
     cout << "Walk up to room 14 (W), walk left to room 15 (A), or walk right to room 12 (D):  ";
     cin >> moveRoomThirteen;
@@ -668,7 +669,7 @@ void ghostFiveFight(Player &player, BaseEnemy &ghostFive)
 void ghostElevenFight(Player &player, BaseEnemy &ghostEleven) 
 {
     char playerAttack;
-    if (ghostEleven.enemyAliveOut() == true) 
+    if (ghostEleven.killedEnemy() == false) 
     {
         while (player.getHealth() > 0 && ghostEleven.health > 0) 
         {
@@ -681,6 +682,7 @@ void ghostElevenFight(Player &player, BaseEnemy &ghostEleven)
                 ghostEleven.health - 20;
                 cout << "You killed the ghost\n";
                 ghostEleven.deadOrAlive(false);
+                ghostEleven.enemyDead(true);
                 break;
             }
             else if (playerAttack == 'C') 
@@ -706,7 +708,7 @@ void ghostElevenFight(Player &player, BaseEnemy &ghostEleven)
             }
         }
     }
-    else if (ghostEleven.enemyAliveOut() == false) 
+    else if (ghostEleven.killedEnemy() == true) 
     {
         cout << "You have aleady killed the ghost.\n";
     }
@@ -716,7 +718,7 @@ void ghostElevenFight(Player &player, BaseEnemy &ghostEleven)
 void ghostThirteenFight(Player &player, BaseEnemy &ghostThirteen) 
 {
     char playerAttack;
-    if (ghostThirteen.enemyAliveOut() == true) 
+    if (ghostThirteen.killedEnemy() == false) 
     {
         while (player.getHealth() > 0 && ghostThirteen.health > 0) 
         {
@@ -729,6 +731,7 @@ void ghostThirteenFight(Player &player, BaseEnemy &ghostThirteen)
                 ghostThirteen.health - 20;
                 cout << "You killed the ghost\n";
                 ghostThirteen.deadOrAlive(false);
+                ghostThirteen.enemyDead(true);
                 break;
             }
             else if (playerAttack == 'C') 
@@ -754,7 +757,7 @@ void ghostThirteenFight(Player &player, BaseEnemy &ghostThirteen)
             }
         }
     }
-    else if (ghostThirteen.enemyAliveOut() == false) 
+    else if (ghostThirteen.killedEnemy() == true) 
     {
         cout << "You have aleady killed the ghost.\n";
     }
@@ -827,7 +830,7 @@ void cthulhuFight(Player &player)
 void dragonFight(Player &player, MiniBoss dragon) 
 {
     char playerAttack;
-    if (dragon.dragonAliveOut() == true) 
+    if (dragon.killedDragon() == false) 
     {
         while (player.getHealth() > 0 && dragon.health > 0) 
         {
@@ -844,6 +847,7 @@ void dragonFight(Player &player, MiniBoss dragon)
                 if (dragon.health <= 0) 
                 {
                     dragon.deadOrAlive(false);
+                    dragon.dragonDead(true);
                     cout << "You have killed Sami.\n";
                     break;
                 }
@@ -871,7 +875,7 @@ void dragonFight(Player &player, MiniBoss dragon)
             }
         }
     }
-    else if (dragon.dragonAliveOut() == false)
+    else if (dragon.killedDragon() == true)
     {
         cout << "You have aleady killed the Sami the Dragon.\n";
     }

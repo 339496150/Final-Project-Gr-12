@@ -59,7 +59,8 @@ class Player
 class MiniBoss
 {
     protected:
-    bool dragonAlive; 
+    bool dragonAlive;
+    bool dragonKilled;
 
     public:
     int health = 30;
@@ -73,6 +74,16 @@ class MiniBoss
     bool dragonAliveOut()
     {
         return dragonAlive;
+    }
+
+    void dragonDead(bool killedIn)
+    {
+        dragonKilled = killedIn;
+    }
+
+    bool killedDragon()
+    {
+        return dragonKilled;
     }
 };
 
@@ -100,6 +111,7 @@ class BaseEnemy
 {
     protected:
     bool enemyAlive;
+    bool enemyKilled;
 
     public:
     int health = 20;
@@ -113,5 +125,15 @@ class BaseEnemy
     bool enemyAliveOut()
     {
         return enemyAlive;
+    }
+
+    void enemyDead(bool killedIn)
+    {
+        enemyKilled = killedIn;
+    }
+
+    bool killedEnemy()
+    {
+        return enemyKilled;
     }
 };
