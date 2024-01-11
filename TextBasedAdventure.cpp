@@ -763,40 +763,40 @@ void ghostThirteenFight(Player &player, BaseEnemy &ghostThirteen)
 // Final Boss Fight in room 16 (roomBoss)
 void cthulhuFight(Player &player)
 {
-    int cthulhuHealth = 50;
+    Boss cthulhu;
     char playerAttack;
-    if (cthulhuAlive == true)
+    if (cthulhu.cthulhuAliveOut() == true)
     {
-        while (playerHealth > 0 && cthulhuHealth > 0)
+        while (player.getHealth() > 0 && cthulhu.health > 0)
         {
             cout << "Fight (F), Check (C), Run (R)\n";
             cin >> playerAttack;
             playerAttack = toupper(playerAttack);
             if (playerAttack == 'F')
             {
-                if (playerHealth <= 0)
+                if (player.getHealth() <= 0)
                 {
                     playerKilled(player);
                 }
-                else if (cthulhuHealth > 0)
+                else if (cthulhu.health > 0)
                 {
-                    cthulhuHealth = cthulhuHealth - 20;
+                    cthulhu.health = cthulhu.health - 20;
                     cout << "You hit Cthulhu\n";
                     cout << "Cthulhu's turn!\n";
                     cout << "Cthulhu attacked you for 25 damage\n";
                     player.setHealth(player.getHealth() - 5);
-                    if (cthulhuHealth <= 0)
+                    if (cthulhu.health <= 0)
                     {
-                        cthulhuAlive = false;
+                        cthulhu.deadOrAlive(false);
                         cthulhuFight(player);
                     }
                 }
             }
             else if (playerAttack == 'C')
             {
-                cout << "\nCthulu\nCreature: Ancient God\nHealth: " << cthulhuHealth << "\nDefence: 35\nAttack: 25\nSpeed: inmobile\n";
+                cout << "\nCthulu\nCreature: Ancient God\nHealth: " << cthulhu.health << "\nDefence: 35\nAttack: " << cthulhu.damage << "\nSpeed: inmobile\n";
                 cout << "Cthulhu attacked you for 25 damage\n";
-                player.setHealth(player.getHealth() - 25);;
+                player.setHealth(player.getHealth() - 25);
                 playerKilled(player);
                 cthulhuFight(player);
             }
@@ -815,7 +815,7 @@ void cthulhuFight(Player &player)
             }
         }
     }
-    else if (cthulhuAlive == false) 
+    else if (cthulhu.cthulhuAliveOut() == false) 
     {
         cout << "You have killed Cthulhu\n";
         cout << "Congratulations your prize is a Pizza Hut Hershey Cookie!!\n";
@@ -827,7 +827,7 @@ void cthulhuFight(Player &player)
 void dragonFight(Player &player, MiniBoss dragon) 
 {
     char playerAttack;
-    if (dragon.deadOrAlive(true)) 
+    if (dragon.dragonAliveOut() == true) 
     {
         while (player.getHealth() > 0 && dragon.health > 0) 
         {
@@ -878,9 +878,9 @@ void dragonFight(Player &player, MiniBoss dragon)
 }
 
 // If the player dies
-void playerKilled() 
+void playerKilled(Player &player) 
 {
-    if (playerHealth <= 0) 
+    if (player.getHealth() <= 0) 
     {
         cout << "YOU'RE DEAD\n";
         exit(0);
