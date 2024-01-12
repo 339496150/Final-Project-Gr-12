@@ -23,7 +23,7 @@ void roomFourteen(Player &player);
 void roomFifteen(Player &player);
 void roomBoss(Player &player);
 void cthulhuFight(Player &player, Boss &cthulhu);
-void dragonFight(Player &player, MiniBoss &dragon);
+void dragonFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen);
 void ghostFiveFight(Player &player, BaseEnemy &ghostFive);
 void ghostElevenFight(Player &player, BaseEnemy &ghostEleven);
 void ghostThirteenFight(Player &player, BaseEnemy &ghostThirteen);
@@ -599,9 +599,8 @@ void start()
     playGame = toupper(playGame);
     if (playGame == 'Y') 
     {
-        cin.ignore('\n', 256);
         cout << "What would you like your name to be?\n";
-        getline(cin, playerName);
+        cin >> playerName;
         cout << "Welcome " << playerName << " it is nice of you to play the game\n";
         cout << playerName << " awakens in a room with a campfire, unsure of what to do " << playerName << " checks the walls for any hidden things.\n";
         cout << "As " << playerName << " checks the walls they find a list of things to do. To escape make it to the end and defeat Cuthulu, find the Dragon somewhere in the rooms and ";
