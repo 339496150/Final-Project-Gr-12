@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "Classes.hpp"
-#include "Blackjack.hpp"
+//#include "Blackjack.hpp"
 
 using namespace std;
 
@@ -22,11 +22,11 @@ void roomThirteen(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &gh
 void roomFourteen(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen);
 void roomFifteen(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen);
 void roomBoss(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen);
-void cthulhuFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen);
-void dragonFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen);
-void ghostFiveFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen);
-void ghostElevenFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen);
-void ghostThirteenFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen);
+void cthulhuFight(Player &player, Boss &cthulhu);
+void dragonFight(Player &player, MiniBoss &dragon);
+void ghostFiveFight(Player &player, BaseEnemy &ghostFive);
+void ghostElevenFight(Player &player, BaseEnemy &ghostEleven);
+void ghostThirteenFight(Player &player, BaseEnemy &ghostThirteen);
 void playerKilled(Player &player);
 
 // First room
@@ -109,12 +109,10 @@ void roomThree(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghost
 // Room 4 with mini boss
 void roomMiniBoss(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen)
 {
-    MiniBoss dragon;
-    dragon.deadOrAlive(true);
     char moveRoomFour;
     cout << "Welcome to room 4\n";
     cout << "As you enter the room you see a large dragon resting on the ground, you deside to name it Sami.\n";
-    dragonFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+    dragonFight(player, dragon);
     cout << "Walk down to room 8 (S) or walk right to room 3 (D):  ";
     cin >> moveRoomFour;
     moveRoomFour = toupper(moveRoomFour);
@@ -136,10 +134,8 @@ void roomMiniBoss(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &gh
 // Room 5
 void roomFive(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen) 
 {
-    BaseEnemy ghostFive;
-    ghostFive.deadOrAlive(true);
     char key, moveRoomFive;
-    ghostFiveFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+    ghostFiveFight(player, ghostFive);
     if (player.keyCheck() == false) 
     {
         cout << "Welcome to room 5\n";
@@ -388,11 +384,9 @@ void roomTen(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFi
 // Room 11
 void roomEleven(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen) 
 {
-    BaseEnemy ghostEleven;
-    ghostEleven.deadOrAlive(true);
     char moveRoomEleven;
     cout << "Welcome to room 11\n";
-    ghostElevenFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+    ghostElevenFight(player, ghostEleven);
     cout << "Walk up to room 7 (W), walk down to room 15 (S), walk left to room 16 (A), or walk right to room 10 (D):  ";
     cin >> moveRoomEleven;
     moveRoomEleven = toupper(moveRoomEleven);
@@ -463,10 +457,8 @@ void roomTwelve(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghos
 // Room 13
 void roomThirteen(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen) 
 {
-    BaseEnemy ghostThirteen;
-    ghostThirteen.deadOrAlive(true);
     char moveRoomThirteen;
-    ghostThirteenFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+    ghostThirteenFight(player, ghostThirteen);
     cout << "Welcome to room 13\n";
     cout << "Walk up to room 14 (W), walk left to room 15 (A), or walk right to room 12 (D):  ";
     cin >> moveRoomThirteen;
@@ -582,16 +574,19 @@ void roomFifteen(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &gho
 // Room 16 with Final Boss
 void roomBoss(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen) 
 {
-    Boss cthulhu;
-    cthulhu.deadOrAlive(true);
     cout << "Congratulations you have made it to the final boss, Cthulu\n";
-    cthulhuFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+    cthulhuFight(player, cthulhu);
 }
 
 // Main Menu
 void start() 
 {
     Player player;
+    Boss cthulhu;
+    MiniBoss dragon;
+    BaseEnemy ghostFive;
+    BaseEnemy ghostEleven;
+    BaseEnemy ghostThirteen;
     char playGame;
     string playerName;
     cout << "Would you like to play Ancient Abyss (Y/N):  ";
@@ -609,6 +604,11 @@ void start()
         player.setDamage(20);
         player.getKey(false);
         player.playerAlive(true);
+        cthulhu.deadOrAlive(true);
+        dragon.deadOrAlive(true);
+        ghostFive.deadOrAlive(true);
+        ghostEleven.deadOrAlive(true);
+        ghostThirteen.deadOrAlive(true);
         startingRoom(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
     }
     else if (playGame == 'N') 
@@ -624,7 +624,7 @@ void start()
 }
 
 // Ghost fight in room 5
-void ghostFiveFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen) 
+void ghostFiveFight(Player &player, BaseEnemy &ghostFive) 
 {
     char playerAttack;
     if (ghostFive.killedEnemy() == false) 
@@ -649,7 +649,7 @@ void ghostFiveFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &
                 cout << "The ghost attacked you for 5 damage\n";
                 player.setHealth(player.getHealth() - 5);
                 playerKilled(player);
-                ghostFiveFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+                ghostFiveFight(player, ghostFive);
             }
             else if (playerAttack == 'R') 
             {
@@ -657,12 +657,12 @@ void ghostFiveFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &
                 cout << "The ghost attacked you for 5 damage\n";
                 player.setHealth(player.getHealth() - 5);
                 playerKilled(player);
-                ghostFiveFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+                ghostFiveFight(player, ghostFive);
             }
             else 
             {
                 cout << "That is not an opton please select one of the options\n";
-                ghostFiveFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+                ghostFiveFight(player, ghostFive);
             }
         }
     }
@@ -673,7 +673,7 @@ void ghostFiveFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &
 }
 
 // Ghost fight in room 11
-void ghostElevenFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen) 
+void ghostElevenFight(Player &player, BaseEnemy &ghostEleven) 
 {
     char playerAttack;
     if (ghostEleven.killedEnemy() == false) 
@@ -698,7 +698,7 @@ void ghostElevenFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy
                 cout << "The ghost attacked you for 5 damage\n";
                 player.setHealth(player.getHealth() - 5);
                 playerKilled(player);
-                ghostElevenFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+                ghostElevenFight(player, ghostEleven);
             }
             else if (playerAttack == 'R') 
             {
@@ -706,12 +706,12 @@ void ghostElevenFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy
                 cout << "The ghost attacked you for 5 damage\n";
                 player.setHealth(player.getHealth() - 5);
                 playerKilled(player);
-                ghostElevenFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+                ghostElevenFight(player, ghostEleven);
             }
             else 
             {
                 cout << "That is not an opton please select one of the options\n";
-                ghostElevenFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+                ghostElevenFight(player, ghostEleven);
             }
         }
     }
@@ -722,7 +722,7 @@ void ghostElevenFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy
 }
 
 // Ghost fight in room 13
-void ghostThirteenFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen) 
+void ghostThirteenFight(Player &player, BaseEnemy &ghostThirteen) 
 {
     char playerAttack;
     if (ghostThirteen.killedEnemy() == false) 
@@ -747,7 +747,7 @@ void ghostThirteenFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEne
                 cout << "The ghost attacked you for 5 damage\n";
                 player.setHealth(player.getHealth() - 5);
                 playerKilled(player);
-                ghostThirteenFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+                ghostThirteenFight(player, ghostThirteen);
             }
             else if (playerAttack == 'R')
             {
@@ -755,12 +755,12 @@ void ghostThirteenFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEne
                 cout << "The ghost attacked you for 5 damage\n";
                 player.setHealth(player.getHealth() - 5);
                 playerKilled(player);
-                ghostThirteenFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+                ghostThirteenFight(player, ghostThirteen);
             }
             else 
             {
                 cout << "That is not an opton please select one of the options\n";
-                ghostThirteenFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+                ghostThirteenFight(player, ghostThirteen);
             }
         }
     }
@@ -772,7 +772,7 @@ void ghostThirteenFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEne
 
 // Final Boss Fight in room 16 (roomBoss)
 
-void cthulhuFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen)
+void cthulhuFight(Player &player, Boss &cthulhu)
 {
     char playerAttack;
     if (cthulhu.killedCthulhu() == false)
@@ -799,7 +799,7 @@ void cthulhuFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &gh
                     {
                         cthulhu.deadOrAlive(false);
                         cthulhu.cthulhuDead(true);
-                        cthulhuFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+                        cthulhuFight(player, cthulhu);
                     }
                 }
             }
@@ -809,7 +809,7 @@ void cthulhuFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &gh
                 cout << "Cthulhu attacked you for 25 damage\n";
                 player.setHealth(player.getHealth() - 25);
                 playerKilled(player);
-                cthulhuFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+                cthulhuFight(player, cthulhu);
             }
             else if (playerAttack == 'R')
             {
@@ -817,12 +817,12 @@ void cthulhuFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &gh
                 cout << "Cthulhu attacked you for 25 damage\n";
                 player.setHealth(player.getHealth() - 25);
                 playerKilled(player);
-                cthulhuFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+                cthulhuFight(player, cthulhu);
             }
             else
             {
                 cout << "That is not an opton please select one of the options\n";
-                cthulhuFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+                cthulhuFight(player, cthulhu);
             }
         }
     }
@@ -835,7 +835,7 @@ void cthulhuFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &gh
 }
 
 // Dragon fight in room 4
-void dragonFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen) 
+void dragonFight(Player &player, MiniBoss &dragon) 
 {
     char playerAttack;
     if (dragon.killedDragon() == false) 
@@ -866,7 +866,7 @@ void dragonFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &gho
                 cout << "Sami attacked you for 5 damage\n";
                 player.setHealth(player.getHealth() - 20);
                 playerKilled(player);
-                dragonFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+                dragonFight(player, dragon);
             }
             else if (playerAttack == 'R')
             {
@@ -874,12 +874,12 @@ void dragonFight(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &gho
                 cout << "Sami attacked you for 5 damage\n";
                 player.setHealth(player.getHealth() - 20);
                 playerKilled(player);
-                dragonFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+                dragonFight(player, dragon);
             }
             else
             {
                 cout << "That is not an opton please select one of the options\n";
-                dragonFight(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
+                dragonFight(player, dragon);
             }
         }
     }
