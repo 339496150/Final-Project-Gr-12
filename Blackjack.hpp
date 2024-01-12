@@ -34,14 +34,33 @@ Blackjack::Blackjack()
     dealerDone = false;
 }
 
+void Blackjack::addDealerCard(Player &player)
+{
+    if (player.dealerhandSize <= 5)
+    {
+        player.dealerHand[dealerhandSize] = 1 + (rand() % 11);
+        player.dealerhandSize++;
+    }
+    else
+    {
+        player.done = true;
+    }
+}
+
+struct Player {
+    int dealerHand[5];
+    int dealerhandSize;
+    bool done;
+};
+
 void Blackjack::playGame()
 {
     cout << "Welcome to Blackjack!\n";
 
     // Start the player and dealer with two cards
     addPlayerCard();
-    addPlayerCard();
     addDealerCard();
+    addPlayerCard();
     addDealerCard();
     sumofHands();
     printHand();
@@ -62,7 +81,7 @@ void Blackjack::playGame()
         if (playerDone == false)
         {
             cout << "Would you like to hit? (1 - Yes, 2 - No)\n";
-            cin >> phit;
+            cin >> playerhit;
 
             if (phit == 1)
             {
@@ -81,10 +100,10 @@ void Blackjack::playGame()
         if (playerDone == false)
         {
             cout << "Would you like to stand? (1 - Yes, 2 - No)\n";
-            cin >> pstand;
+            cin >> playerStand;
         }
 
-        if (pstand == 1)
+        if (playerStand == 1)
         {
             playerDone = true;
         }
@@ -143,14 +162,14 @@ void Blackjack::playGame()
     }
 }
 
-int dhand[5];
+int dealerHand[5];
 int phand[5];
 int dealerhandSize;
 int playerhandSize;
 int dealerhandSum;
 int playerhandSum;
 int phit;
-int pstand;
+int playerStand;
 bool playerDone;
 bool dealerDone;
 
@@ -172,7 +191,7 @@ void Blackjack::addDealerCard()
 {
     if (dealerhandSize <= 5)
     {
-        dhand[dealerhandSize] = 1 + (rand() % 11);
+        dealerHand[dealerhandSize] = 1 + (rand() % 11);
         dealerhandSize++;
     }
     else
@@ -194,7 +213,7 @@ void Blackjack::printHand()
 
     for (int j = 0; j < dealerhandSize; j++)
     {
-        cout << "    -" << dhand[j] << "-    \n\n";
+        cout << "    -" << dealerHand[j] << "-    \n\n";
     }
 }
 
@@ -204,7 +223,7 @@ void Blackjack::sumHands()
     playerhandSum = 0;
     for (int i = 0; i < dealerhandSize; i++)
     {
-        dealerhandSum += dhand[i];
+        dealerhandSum += dealerHand[i];
     }
 
     for (int j = 0; j < playerhandSize; j++)
