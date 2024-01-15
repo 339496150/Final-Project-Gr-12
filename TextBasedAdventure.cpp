@@ -603,12 +603,6 @@ void start()
         player.setHealth(100);
         player.setDamage(20);
         player.getKey(false);
-        player.playerAlive(true);
-        cthulhu.deadOrAlive(true);
-        dragon.deadOrAlive(true);
-        ghostFive.deadOrAlive(true);
-        ghostEleven.deadOrAlive(true);
-        ghostThirteen.deadOrAlive(true);
         startingRoom(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
     }
     else if (playGame == 'N') 
@@ -639,7 +633,6 @@ void ghostFiveFight(Player &player, BaseEnemy &ghostFive)
                 cout << "you managed to get a hit on the enemy\n";
                 ghostFive.health - 20;
                 cout << "You killed the ghost\n";
-                ghostFive.deadOrAlive(false);
                 ghostFive.enemyDead(true);
                 break;
             }
@@ -688,7 +681,6 @@ void ghostElevenFight(Player &player, BaseEnemy &ghostEleven)
                 cout << "you managed to get a hit on the enemy\n";
                 ghostEleven.health - 20;
                 cout << "You killed the ghost\n";
-                ghostEleven.deadOrAlive(false);
                 ghostEleven.enemyDead(true);
                 break;
             }
@@ -737,7 +729,6 @@ void ghostThirteenFight(Player &player, BaseEnemy &ghostThirteen)
                 cout << "you managed to get a hit on the enemy\n";
                 ghostThirteen.health - 20;
                 cout << "You killed the ghost\n";
-                ghostThirteen.deadOrAlive(false);
                 ghostThirteen.enemyDead(true);
                 break;
             }
@@ -797,7 +788,6 @@ void cthulhuFight(Player &player, Boss &cthulhu)
                     player.setHealth(player.getHealth() - 5);
                     if (cthulhu.health <= 0)
                     {
-                        cthulhu.deadOrAlive(false);
                         cthulhu.cthulhuDead(true);
                         cthulhuFight(player, cthulhu);
                     }
@@ -854,7 +844,6 @@ void dragonFight(Player &player, MiniBoss &dragon)
                 player.setHealth(player.getHealth() - 20);
                 if (dragon.health <= 0) 
                 {
-                    dragon.deadOrAlive(false);
                     dragon.dragonDead(true);
                     cout << "You have killed Sami.\n";
                     break;

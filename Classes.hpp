@@ -11,8 +11,8 @@ class Player
     protected:
     int health;
     int damage;
-    bool haveKey;
-    bool playerKilled;
+    bool haveKey = false;
+    bool playerKilled = false;
 
     public:
     void setHealth(int healthIn)
@@ -44,37 +44,16 @@ class Player
     {
         return haveKey;
     }
-
-    void playerAlive(bool death)
-    {
-        playerKilled = death;
-    }
-
-    bool playerCheck()
-    {
-        return playerKilled;
-    }
 };
 
 class MiniBoss
 {
     protected:
-    bool dragonAlive;
-    bool dragonKilled;
+    bool dragonKilled = false;
 
     public:
     int health = 30;
     int damage = 20;
-
-    void deadOrAlive(bool deathCheck)
-    {
-        dragonAlive = deathCheck;
-    }
-
-    bool dragonAliveOut()
-    {
-        return dragonAlive;
-    }
 
     void dragonDead(bool killedIn)
     {
@@ -90,22 +69,11 @@ class MiniBoss
 class Boss
 {
     protected:
-    bool cthulhuAlive;
-    bool cthulhuKilled;
+    bool cthulhuKilled = false;
 
     public:
     int health = 50;
     int damage = 25;
-
-    void deadOrAlive(bool deathCheck)
-    {
-        cthulhuAlive = deathCheck;
-    }
-
-    bool cthulhuAliveOut()
-    {
-        return cthulhuAlive;
-    }
 
     void cthulhuDead(bool killedIn)
     {
@@ -121,22 +89,11 @@ class Boss
 class BaseEnemy
 {
     protected:
-    bool enemyAlive;
-    bool enemyKilled;
+    bool enemyKilled = false;
 
     public:
     int health = 20;
     int damage = 5;
-
-    void deadOrAlive(bool deathCheck)
-    {
-        enemyAlive = deathCheck;
-    }
-
-    bool enemyAliveOut()
-    {
-        return enemyAlive;
-    }
 
     void enemyDead(bool killedIn)
     {
