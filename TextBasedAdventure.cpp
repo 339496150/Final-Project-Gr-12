@@ -600,9 +600,6 @@ void start()
         cout << playerName << " awakens in a room with a campfire, unsure of what to do " << playerName << " checks the walls for any hidden things.\n";
         cout << "As " << playerName << " checks the walls they find a list of things to do. To escape make it to the end and defeat Cuthulu, find the Dragon somewhere in the rooms and ";
         cout << "kill it. But don't die while your at it or you lose.\n";
-        player.setHealth(100);
-        player.setDamage(20);
-        player.getKey(false);
         startingRoom(player, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
     }
     else if (playGame == 'N') 

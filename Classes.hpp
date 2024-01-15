@@ -9,8 +9,8 @@ using namespace std;
 class Player
 {
     protected:
-    int health;
-    int damage;
+    int health = 100;
+    int damage = 20;
     bool haveKey = false;
 
     public:
