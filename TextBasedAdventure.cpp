@@ -846,6 +846,9 @@ void dragonFight(Player &player, MiniBoss &dragon)
                 {
                     dragon.dragonDead(true);
                     cout << "You have killed Sami.\n";
+                    cout << "You feel more confident after killing the dragon\n";
+                    cout << "Your new attack strength is 30\n";
+                    player.setDamage(30);
                     break;
                 }
             }

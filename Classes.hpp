@@ -12,7 +12,6 @@ class Player
     int health;
     int damage;
     bool haveKey = false;
-    bool playerKilled = false;
 
     public:
     void setHealth(int healthIn)
