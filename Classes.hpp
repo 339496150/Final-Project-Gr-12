@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class Player
+class Hero
 {
     protected:
     int health = 100;
