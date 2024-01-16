@@ -5,7 +5,7 @@
 
 using namespace std;
 
-// Allows all the functions to call one another
+// Allows all the functions to call one another (there is no other way that I know of)
 void startingRoom(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen);
 void roomTwo(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen);
 void roomThree(Player &player, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen);
