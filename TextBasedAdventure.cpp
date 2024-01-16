@@ -628,7 +628,7 @@ void ghostFiveFight(Player &player, BaseEnemy &ghostFive)
             if (playerAttack == 'F') 
             {
                 cout << "you managed to get a hit on the enemy\n";
-                ghostFive.health - 20;
+                ghostFive.health -=  - player.getDamage();
                 cout << "You killed the ghost\n";
                 ghostFive.enemyDead(true);
                 break;
@@ -676,7 +676,7 @@ void ghostElevenFight(Player &player, BaseEnemy &ghostEleven)
             if (playerAttack == 'F') 
             {
                 cout << "you managed to get a hit on the enemy\n";
-                ghostEleven.health - 20;
+                ghostEleven.health -=  - player.getDamage();
                 cout << "You killed the ghost\n";
                 ghostEleven.enemyDead(true);
                 break;
@@ -724,7 +724,7 @@ void ghostThirteenFight(Player &player, BaseEnemy &ghostThirteen)
             if (playerAttack == 'F') 
             {
                 cout << "you managed to get a hit on the enemy\n";
-                ghostThirteen.health - 20;
+                ghostThirteen.health -=  - player.getDamage();
                 cout << "You killed the ghost\n";
                 ghostThirteen.enemyDead(true);
                 break;
@@ -778,7 +778,7 @@ void cthulhuFight(Player &player, Boss &cthulhu)
                 }
                 else if (cthulhu.health > 0)
                 {
-                    cthulhu.health = cthulhu.health - 20;
+                    cthulhu.health = cthulhu.health - player.getDamage();
                     cout << "You hit Cthulhu\n";
                     cout << "Cthulhu's turn!\n";
                     cout << "Cthulhu attacked you for 25 damage\n";
