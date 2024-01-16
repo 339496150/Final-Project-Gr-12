@@ -4,6 +4,7 @@
 #include <cstdlib>
 
 using namespace std;
+
 //Card class definers
 class Card {
 public:
@@ -32,11 +33,15 @@ private:
     Suit suit;
 };
 
-class Deck {
+class Deck 
+{
 public:
-    Deck() {
-        for (int s = Card::CLUBS; s <= Card::SPADES; ++s) {
-            for (int r = Card::ACE; r <= Card::KING; ++r) {
+    Deck() 
+    {
+        for (int s = Card::CLUBS; s <= Card::SPADES; ++s) 
+        {
+            for (int r = Card::ACE; r <= Card::KING; ++r) 
+            {
                 cards.push_back(Card(static_cast<Card::Rank>(r), static_cast<Card::Suit>(s)));
             }
         }
