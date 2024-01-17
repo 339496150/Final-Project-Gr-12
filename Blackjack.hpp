@@ -96,7 +96,7 @@ private:
     int totalScore;
 };
 
-int main() {
+int blackjack() {
     Deck deck;
     Player player;
     Player dealer;
