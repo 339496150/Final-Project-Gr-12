@@ -111,6 +111,7 @@ private:
     int totalScore;
 };
 
+//going to put this in each class so it is easier
 void blackjack(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen) 
 {
     char choice;
