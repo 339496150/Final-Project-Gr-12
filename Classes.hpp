@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "Blackjack.hpp"
 
 #pragma once
 

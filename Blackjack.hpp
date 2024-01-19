@@ -2,7 +2,6 @@
 #include <vector>
 #include <ctime>
 #include <cstdlib>
-#include "Classes.hpp"
 
 using namespace std;
 
@@ -112,7 +111,7 @@ private:
     int totalScore;
 };
 
-int blackjack(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen) 
+void blackjack(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen) 
 {
     char choice;
     cin.ignore(256, '\n');
@@ -144,8 +143,7 @@ int blackjack(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive,
 
             if (player.getTotalScore() > 21) 
             {
-                cout << "Lose" << endl;
-                return 0;
+                cout << "Lose" << endl;;
             }
         }
 
@@ -173,6 +171,4 @@ int blackjack(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive,
     {
         cout << "Lose" << endl;
     }
-
-    return 0;
 }
