@@ -15,15 +15,20 @@ public:
 
     Card(Rank r, Suit s) : rank(r), suit(s) {}
 
-    int getValue() const {
-        if (rank > 10) {
+    int getValue() const 
+    {
+        if (rank > 10) 
+        {
             return 10;
-        } else {
+        } 
+        else 
+        {
             return rank;
         }
     }
 
-    void displayCard() const {
+    void displayCard() 
+    {
         const char* rankStr[] = { "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King" };
         const char* suitStr[] = { "Clubs", "Diamonds", "Hearts", "Spades" };
 
@@ -50,20 +55,24 @@ public:
         shuffleDeck();
     }
 
-    void randomShuffle() {
+    void randomShuffle() 
+    {
         int n = cards.size();
-        for (int i = n - 1; i > 0; --i) {
+        for (int i = n - 1; i > 0; --i) 
+        {
             int j = rand() % (i + 1);
             swap(cards[i], cards[j]);
         }
     }
 
-    void shuffleDeck() {
+    void shuffleDeck() 
+    {
         srand(static_cast<unsigned int>(time(0)));
         randomShuffle();
     }
 
-    Card dealCard() {
+    Card dealCard() 
+    {
         Card dealtCard = cards.back();
         cards.pop_back();
         return dealtCard;
