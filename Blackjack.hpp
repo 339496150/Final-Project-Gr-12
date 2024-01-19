@@ -2,6 +2,7 @@
 #include <vector>
 #include <ctime>
 #include <cstdlib>
+#include "Classes.hpp"
 
 using namespace std;
 
@@ -77,17 +78,21 @@ class Player
 public:
     Player() : totalScore(0) {}
 
-    void addCard(const Card& card) {
+    void addCard(const Card& card) 
+    {
         hand.push_back(card);
         totalScore += card.getValue();
     }
 
-    int getTotalScore() const {
+    int getTotalScore()
+     {
         return totalScore;
     }
 
-    void displayHand() const {
-        for (const auto& card : hand) {
+    void displayHand()  
+    {
+        for (auto& card : hand) 
+        {
             card.displayCard();
         }
         cout << "Total: " << totalScore << endl;
@@ -98,7 +103,10 @@ private:
     int totalScore;
 };
 
-int blackjack() {
+int blackjack(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen) 
+{
+    char choice;
+    cin.ignore(256, '\n');
     Deck deck;
     Player player;
     Player dealer;
@@ -110,32 +118,36 @@ int blackjack() {
     dealer.addCard(deck.dealCard());
 
     //Player turn
-    cout << "Your hand:" << endl;
+    cout << "Your hand:\n";
     player.displayHand();
 
-    char choice;
-    do {
+
+    while (choice != 's')
+    {
         cout << "Do you want to hit (h) or stand (s)? ";
         cin >> choice;
 
-        if (choice == 'h') {
+        if (choice == 'h') 
+        {
             player.addCard(deck.dealCard());
             cout << "Your hand:" << endl;
             player.displayHand();
 
-            if (player.getTotalScore() > 21) {
+            if (player.getTotalScore() > 21) 
+            {
                 cout << "Lose" << endl;
                 return 0;
             }
         }
 
-    } while (choice != 's');
+    }
 
     //Dealer turn
     cout << "Dealer's hand:" << endl;
     dealer.displayHand();
 
-    while (dealer.getTotalScore() < 17) {
+    while (dealer.getTotalScore() < 17) 
+    {
         dealer.addCard(deck.dealCard());
         cout << "Dealer hit" << endl;
     }
@@ -144,9 +156,12 @@ int blackjack() {
     dealer.displayHand();
 
     //Check for win
-    if (dealer.getTotalScore() > 21 || (player.getTotalScore() <= 21 && player.getTotalScore() > dealer.getTotalScore())) {
+    if (dealer.getTotalScore() > 21 || (player.getTotalScore() <= 21 && player.getTotalScore() > dealer.getTotalScore())) 
+    {
         cout << "You win" << endl;
-    } else {
+    } 
+    else 
+    {
         cout << "Lose" << endl;
     }
 
