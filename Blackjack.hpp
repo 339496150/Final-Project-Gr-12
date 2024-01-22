@@ -3,6 +3,8 @@
 #include <ctime>
 #include <cstdlib>
 
+#pragma once
+
 using namespace std;
 
 //Card class definers
@@ -110,66 +112,3 @@ private:
     vector<Card> hand;
     int totalScore;
 };
-
-//going to put this in each class so it is easier
-void blackjack(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen) 
-{
-    char choice;
-    cin.ignore(256, '\n');
-    Deck deck;
-    Player player;
-    Player dealer;
-
-    //First deal
-    player.addCard(deck.dealCard());
-    dealer.addCard(deck.dealCard());
-    player.addCard(deck.dealCard());
-    dealer.addCard(deck.dealCard());
-
-    //Player turn
-    cout << "Your hand:\n";
-    player.displayHand();
-
-
-    while (choice != 's')
-    {
-        cout << "Do you want to hit (h) or stand (s)? ";
-        cin >> choice;
-
-        if (choice == 'h') 
-        {
-            player.addCard(deck.dealCard());
-            cout << "Your hand:" << endl;
-            player.displayHand();
-
-            if (player.getTotalScore() > 21) 
-            {
-                cout << "Lose" << endl;;
-            }
-        }
-
-    }
-
-    //Dealer turn
-    cout << "Dealer's hand:" << endl;
-    dealer.displayHand();
-
-    while (dealer.getTotalScore() < 17) 
-    {
-        dealer.addCard(deck.dealCard());
-        cout << "Dealer hit" << endl;
-    }
-
-    cout << "Dealer's hand:" << endl;
-    dealer.displayHand();
-
-    //Check for win
-    if (dealer.getTotalScore() > 21 || (player.getTotalScore() <= 21 && player.getTotalScore() > dealer.getTotalScore())) 
-    {
-        cout << "You win" << endl;
-    } 
-    else 
-    {
-        cout << "Lose" << endl;
-    }
-}
