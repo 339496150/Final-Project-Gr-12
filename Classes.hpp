@@ -202,7 +202,6 @@ class Boss
                     cout << "Cthulhu's turn!" << endl;
                     cout << "Cthulhu attacked you for 25 damage" << endl;
                     hero.setHealth(hero.getHealth() - damage);
-                    heroKilled(hero);
                     break;
                 }
             }
@@ -328,7 +327,6 @@ class BaseEnemy
             cout << "You missed" << endl;
             cout << "The ghost attacked you for 5 damage" << endl;
             hero.setHealth(hero.getHealth() - damage);
-            heroKilled(hero);
         }
     }
 };
