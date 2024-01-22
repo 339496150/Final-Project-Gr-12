@@ -44,6 +44,17 @@ class Hero
     {
         return haveKey;
     }
+
+    // If the hero dies
+    void heroKilled() 
+    {
+        if (getHealth() <= 0) 
+        {
+            cout << "YOU'RE DEAD" << endl;
+            exit(0);
+        }
+    }
+
 };
 
 class MiniBoss

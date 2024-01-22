@@ -26,7 +26,7 @@ void dragonFight(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFi
 void ghostFiveFight(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen);
 void ghostElevenFight(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen);
 void ghostThirteenFight(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen);
-void heroKilled(Hero &hero);
+
 
 // First room
 void startingRoom(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, BaseEnemy &ghostEleven, BaseEnemy &ghostThirteen) 
@@ -361,7 +361,7 @@ void roomTen(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFive, 
         cout << "As you walk past them they activate and you get hit" << endl;
         cout << "The spikes deal 50 damage" << endl;
         hero.setHealth(hero.getHealth() - 50);
-        heroKilled(hero);
+        hero.heroKilled();
         cout << "You have " << hero.getHealth() << "HP.\n" << endl;
         roomEleven(hero, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
     }
@@ -442,7 +442,7 @@ void roomTwelve(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFiv
         cout << "As you walk past them they activate and you get hit." << endl;
         cout << "The spikes deal 50 damage" << endl;
         hero.setHealth(hero.getHealth() - 50);
-        heroKilled(hero);
+        hero.heroKilled();
         cout << "You have " << hero.getHealth() << " HP" << endl;
         roomThirteen(hero, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
     }
@@ -627,14 +627,14 @@ void ghostFiveFight(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghos
             if (heroAttack == 'F') 
             {
                 ghostFive.ghostBlackjack(hero);
-                heroKilled(hero);
+                hero.heroKilled();
             }
             else if (heroAttack == 'C') 
             {
                 cout << "\n Greg\nCreature: Ghost\nHealth:" << ghostFive.health << "\nDefence: 0\nAttack: "<< ghostFive.damage <<"\nSpeed: 3" << endl;
                 cout << "The ghost attacked you for 5 damage" << endl;
                 hero.setHealth(hero.getHealth() - ghostFive.damage);
-                heroKilled(hero);
+                hero.heroKilled();
                 ghostFiveFight(hero, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
             }
             else if (heroAttack == 'R') 
@@ -642,7 +642,7 @@ void ghostFiveFight(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghos
                 cout << "You tried to escape but the ghost blocked the way" << endl;
                 cout << "The ghost attacked you for 5 damage" << endl;
                 hero.setHealth(hero.getHealth() - ghostFive.damage);
-                heroKilled(hero);
+                hero.heroKilled();
                 ghostFiveFight(hero, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
             }
             else 
@@ -672,14 +672,14 @@ void ghostElevenFight(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &gh
             if (heroAttack == 'F') 
             {
                 ghostEleven.ghostBlackjack(hero);
-                heroKilled(hero);
+                hero.heroKilled();
             }
             else if (heroAttack == 'C') 
             {
                 cout << "\n Greg\nCreature: Ghost\nHealth:" << ghostEleven.health << "\nDefence: 0\nAttack: "<< ghostEleven.damage <<"\nSpeed: 3" << endl;
                 cout << "The ghost attacked you for 5 damage" << endl;
                 hero.setHealth(hero.getHealth() - ghostEleven.damage);
-                heroKilled(hero);
+                hero.heroKilled();
                 ghostElevenFight(hero, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
             }
             else if (heroAttack == 'R') 
@@ -687,7 +687,7 @@ void ghostElevenFight(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &gh
                 cout << "You tried to escape but the ghost blocked the way" << endl;
                 cout << "The ghost attacked you for 5 damage" << endl;
                 hero.setHealth(hero.getHealth() - ghostEleven.damage);
-                heroKilled(hero);
+                hero.heroKilled();
                 ghostElevenFight(hero, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
             }
             else 
@@ -717,14 +717,14 @@ void ghostThirteenFight(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &
             if (heroAttack == 'F') 
             {
                 ghostThirteen.ghostBlackjack(hero);
-                heroKilled(hero);
+                hero.heroKilled();
             }
             else if (heroAttack == 'C') 
             {
                 cout << "\n Greg\nCreature: Ghost\nHealth:" << ghostThirteen.health << "\nDefence: 0\nAttack: "<< ghostThirteen.damage <<"\nSpeed: 3" << endl;
                 cout << "The ghost attacked you for 5 damage" << endl;
                 hero.setHealth(hero.getHealth() - ghostThirteen.damage);
-                heroKilled(hero);
+                hero.heroKilled();
                 ghostThirteenFight(hero, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
             }
             else if (heroAttack == 'R')
@@ -732,7 +732,7 @@ void ghostThirteenFight(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &
                 cout << "You tried to escape but the ghost blocked the way" << endl;
                 cout << "The ghost attacked you for 5 damage" << endl;
                 hero.setHealth(hero.getHealth() - ghostThirteen.damage);
-                heroKilled(hero);
+                hero.heroKilled();
                 ghostThirteenFight(hero, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
             }
             else 
@@ -763,14 +763,14 @@ void cthulhuFight(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostF
             if (heroAttack == 'F')
             {
                 cthulhu.bossBlackjack(hero);
-                heroKilled(hero);
+                hero.heroKilled();
             }
             else if (heroAttack == 'C')
             {
                 cout << "\nCthulu\nCreature: Ancient God\nHealth: " << cthulhu.health << "\nDefence: 35\nAttack: " << cthulhu.damage << "\nSpeed: inmobile" << endl;
                 cout << "Cthulhu attacked you for 25 damage" << endl;
                 hero.setHealth(hero.getHealth() - cthulhu.damage);
-                heroKilled(hero);
+                hero.heroKilled();
                 cthulhuFight(hero, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
             }
             else if (heroAttack == 'R')
@@ -778,7 +778,7 @@ void cthulhuFight(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostF
                 cout << "You tried to escape but there is way no way out." << endl;
                 cout << "Cthulhu attacked you for 25 damage" << endl;
                 hero.setHealth(hero.getHealth() - cthulhu.damage);
-                heroKilled(hero);
+                hero.heroKilled();
                 cthulhuFight(hero, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
             }
             else
@@ -810,14 +810,14 @@ void dragonFight(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFi
             if (heroAttack == 'F') 
             {
                 dragon.dragonBlackjack(hero);
-                heroKilled(hero);
+                hero.heroKilled();
             }
             else if (heroAttack == 'C')
             {
                 cout << "\nSami\nCreature: Dragon\nHealth: " << dragon.health << "\nDefence: 10\nAttack: " << dragon.damage << "\nSpeed:40" << endl;
                 cout << "Sami attacked you for 5 damage" << endl;
                 hero.setHealth(hero.getHealth() - dragon.damage);
-                heroKilled(hero);
+                hero.heroKilled();
                 dragonFight(hero, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
             }
             else if (heroAttack == 'R')
@@ -825,7 +825,7 @@ void dragonFight(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFi
                 cout << "You tried to escape but Sami's tail blocked the way" << endl;
                 cout << "Sami attacked you for 5 damage" << endl;
                 hero.setHealth(hero.getHealth() - dragon.damage);
-                heroKilled(hero);
+                hero.heroKilled();
                 dragonFight(hero, dragon, cthulhu, ghostFive, ghostEleven, ghostThirteen);
             }
             else
@@ -838,16 +838,6 @@ void dragonFight(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFi
     else if (dragon.killedDragon() == true)
     {
         cout << "You have aleady killed the Sami the Dragon." << endl;
-    }
-}
-
-// If the hero dies
-void heroKilled(Hero &hero) 
-{
-    if (hero.getHealth() <= 0) 
-    {
-        cout << "YOU'RE DEAD" << endl;
-        exit(0);
     }
 }
 
