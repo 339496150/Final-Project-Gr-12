@@ -890,5 +890,5 @@ void heroKilled(Hero &hero)
 
 int main() 
 { 
-    start(); 
+    start(); //Smith was here!
 }
