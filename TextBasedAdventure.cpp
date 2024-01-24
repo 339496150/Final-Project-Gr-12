@@ -843,5 +843,5 @@ void dragonFight(Hero &hero, MiniBoss &dragon, Boss &cthulhu, BaseEnemy &ghostFi
 
 int main() 
 { 
-    start(); //Smith was here!
+    start();
 }
