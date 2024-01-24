@@ -95,7 +95,7 @@ class MiniBoss
         player.displayHand();
 
 
-        while (choice != 's')
+        while (choice != 's' || player.getTotalScore() > 21)
         {
             cout << "Do you want to hit (h) or stand (s)? ";
             cin >> choice;
@@ -109,10 +109,6 @@ class MiniBoss
                 if (player.getTotalScore() > 21) 
                 {
                     cout << "You missed" << endl;
-                    cout << "Sami's turn!" << endl;
-                    cout << "Sami attacked you for 20 damage" << endl;
-                    hero.setHealth(hero.getHealth() - damage);
-                    break;
                 }
             }
 
@@ -213,9 +209,6 @@ class Boss
                 if (player.getTotalScore() > 21) 
                 {
                     cout << "You missed" << endl;
-                    cout << "Cthulhu's turn!" << endl;
-                    cout << "Cthulhu attacked you for 25 damage" << endl;
-                    hero.setHealth(hero.getHealth() - damage);
                     break;
                 }
             }
@@ -307,8 +300,6 @@ class BaseEnemy
                 if (player.getTotalScore() > 21) 
                 {
                     cout << "You missed" << endl;
-                    cout << "The ghost attacked you for 5 damage" << endl;
-                    hero.setHealth(hero.getHealth() - damage);
                     break;
                 }
             }
