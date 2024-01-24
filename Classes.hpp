@@ -95,7 +95,7 @@ class MiniBoss
         player.displayHand();
 
 
-        while (choice != 's' || player.getTotalScore() > 21)
+        while (choice != 's')
         {
             cout << "Do you want to hit (h) or stand (s)? ";
             cin >> choice;
@@ -109,6 +109,7 @@ class MiniBoss
                 if (player.getTotalScore() > 21) 
                 {
                     cout << "You missed" << endl;
+                    break;
                 }
             }
 
