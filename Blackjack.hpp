@@ -3,25 +3,33 @@
 #include <ctime>
 #include <cstdlib>
 
+#pragma once
+
 using namespace std;
 
 //Card class definers
-class Card {
+class Card 
+{
 public:
     enum Rank { ACE = 1, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING };
     enum Suit { CLUBS, DIAMONDS, HEARTS, SPADES };
 
     Card(Rank r, Suit s) : rank(r), suit(s) {}
 
-    int getValue() const {
-        if (rank > 10) {
+    int getValue() const 
+    {
+        if (rank > 10) 
+        {
             return 10;
-        } else {
+        } 
+        else 
+        {
             return rank;
         }
     }
 
-    void displayCard() const {
+    void displayCard() 
+    {
         const char* rankStr[] = { "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King" };
         const char* suitStr[] = { "Clubs", "Diamonds", "Hearts", "Spades" };
 
@@ -48,20 +56,24 @@ public:
         shuffleDeck();
     }
 
-    void randomShuffle() {
+    void randomShuffle() 
+    {
         int n = cards.size();
-        for (int i = n - 1; i > 0; --i) {
+        for (int i = n - 1; i > 0; --i) 
+        {
             int j = rand() % (i + 1);
             swap(cards[i], cards[j]);
         }
     }
 
-    void shuffleDeck() {
+    void shuffleDeck() 
+    {
         srand(static_cast<unsigned int>(time(0)));
         randomShuffle();
     }
 
-    Card dealCard() {
+    Card dealCard() 
+    {
         Card dealtCard = cards.back();
         cards.pop_back();
         return dealtCard;
@@ -71,21 +83,26 @@ private:
     vector<Card> cards;
 };
 
-class Player {
+class Player 
+{
 public:
     Player() : totalScore(0) {}
 
-    void addCard(const Card& card) {
+    void addCard(const Card& card) 
+    {
         hand.push_back(card);
         totalScore += card.getValue();
     }
 
-    int getTotalScore() const {
+    int getTotalScore()
+     {
         return totalScore;
     }
 
-    void displayHand() const {
-        for (const auto& card : hand) {
+    void displayHand()  
+    {
+        for (auto& card : hand) 
+        {
             card.displayCard();
         }
         cout << "Total: " << totalScore << endl;
@@ -95,58 +112,3 @@ private:
     vector<Card> hand;
     int totalScore;
 };
-
-int main() {
-    Deck deck;
-    Player player;
-    Player dealer;
-
-    //First deal
-    player.addCard(deck.dealCard());
-    dealer.addCard(deck.dealCard());
-    player.addCard(deck.dealCard());
-    dealer.addCard(deck.dealCard());
-
-    //Player turn
-    cout << "Your hand:" << endl;
-    player.displayHand();
-
-    char choice;
-    do {
-        cout << "Do you want to hit (h) or stand (s)? ";
-        cin >> choice;
-
-        if (choice == 'h') {
-            player.addCard(deck.dealCard());
-            cout << "Your hand:" << endl;
-            player.displayHand();
-
-            if (player.getTotalScore() > 21) {
-                cout << "Lose" << endl;
-                return 0;
-            }
-        }
-
-    } while (choice != 's');
-
-    //Dealer turn
-    cout << "Dealer's hand:" << endl;
-    dealer.displayHand();
-
-    while (dealer.getTotalScore() < 17) {
-        dealer.addCard(deck.dealCard());
-        cout << "Dealer hit" << endl;
-    }
-
-    cout << "Dealer's hand:" << endl;
-    dealer.displayHand();
-
-    //Check for win
-    if (dealer.getTotalScore() > 21 || (player.getTotalScore() <= 21 && player.getTotalScore() > dealer.getTotalScore())) {
-        cout << "You win" << endl;
-    } else {
-        cout << "Lose" << endl;
-    }
-
-    return 0;
-}
