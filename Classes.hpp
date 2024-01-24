@@ -144,9 +144,12 @@ class MiniBoss
                 cout << "Your new attack strength is 30" << endl;
                 hero.setDamage(30);
             }
-            cout << "Sami's turn!" << endl;
-            cout << "Sami attacked you for 20 damage" << endl;
-            hero.setHealth(hero.getHealth() - damage);
+            else
+            {
+                cout << "Sami's turn!" << endl;
+                cout << "Sami attacked you for 20 damage" << endl;
+                hero.setHealth(hero.getHealth() - damage);
+            }
         } 
         else 
         {
