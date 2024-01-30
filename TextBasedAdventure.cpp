@@ -1,3 +1,5 @@
+//Thank you for being an amazing teacher for the 3 years we have had you teaching us
+
 #include <iostream>
 #include <string>
 #include "Classes.hpp"
